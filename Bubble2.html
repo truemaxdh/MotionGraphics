@@ -52,11 +52,15 @@
     
     function frame() {
       // clear
-      ctx.globalCompositeOperation = 'multiply';
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, cnv_w, cnv_h);
+      
+      /*ctx.globalCompositeOperation = 'multiply';
       ctx.beginPath();
       ctx.fillStyle="#fcfcfc";
       ctx.rect(0, 0, cnv_w, cnv_h);
-      ctx.fill();
+      ctx.fill();*/      
 
       for (var i = 0; i < bubbles.length; i++) {
         console.log(3);
@@ -64,7 +68,7 @@
 
         // draw
         //ctx.globalCompositeOperation = "saturation";
-        ctx.globalCompositeOperation = "lighter";
+        ctx.globalCompositeOperation = "color";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
         const g = ctx.createRadialGradient(
