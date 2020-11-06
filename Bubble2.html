@@ -31,7 +31,7 @@
       this.r = r;
       this.dx = dx;
       this.dy = dy;
-      this.color = 0;
+      this.color = Math.random() * colors.length;
     }
     
     var bubbles = [];
@@ -43,7 +43,7 @@
           new _bubble(
             Math.random() * cnv_w, 
             Math.random() * cnv_h,
-            Math.random() * Math.max(cnv_w, cnv_h),
+            Math.random() * Math.min(cnv_w, cnv_h) * 0.5,
             Math.random() * 12 - 6,
             Math.random() * 12 - 6
             )
