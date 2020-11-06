@@ -67,15 +67,15 @@
         var b = bubbles[i];
 
         // draw
-        //ctx.globalCompositeOperation = "saturation";
-        ctx.globalCompositeOperation = "lighter";
+        ctx.globalCompositeOperation = "saturation";
+        //ctx.globalCompositeOperation = "lighter";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
         const g = ctx.createRadialGradient(
           b.cx, b.cy, b.r * 0.1, b.cx, b.cy, b.r
         );
         g.addColorStop(0, colors[b.color]);
-        g.addColorStop(1, 'white');
+        g.addColorStop(1, 'transparent');
 
         ctx.fillStyle = g;
         ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
