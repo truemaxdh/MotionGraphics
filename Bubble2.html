@@ -52,17 +52,17 @@
     
     function frame() {
       // clear
-      ctx.beginPath();
-      ctx.fillStyle="#fcfcfc";
-      ctx.rect(0, 0, cnv_w, cnv_h);
-      ctx.fill();
+      //ctx.beginPath();
+      //ctx.fillStyle="#fcfcfc";
+      //ctx.rect(0, 0, cnv_w, cnv_h);
+      //ctx.fill();
 
       for (var i = 0; i < bubbles.length; i++) {
         console.log(3);
         var b = bubbles[i];
 
         // draw
-        ctx.globalCompositeOperation = "soft-light";
+        ctx.globalCompositeOperation = "saturation";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
         const g = ctx.createRadialGradient(
