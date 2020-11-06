@@ -17,15 +17,12 @@
   <body>
     <!-- // Bubbles -->
     <canvas id="cnv" width="800" height="600" style="border:1px solid #73AD21;border-radius:10px;">CANVAS NOT SUPPORTED</canvas>
-		
+    
   </body>
   <script>
     // Bubbles
     var c = document.getElementById("cnv");
     var ctx = c.getContext("2d");
-    console.log(0);
-    //ctx.globalCompositeOperation = "saturation";
-	  console.log(1);
     var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
     function _bubble(cx, cy, r, dx, dy, c) {
       this.cx = cx;
@@ -54,7 +51,6 @@
     }
     
     function frame() {
-      console.log(2);
       // clear
       ctx.beginPath();
       ctx.fillStyle="#fcfcfc";
@@ -66,6 +62,7 @@
         var b = bubbles[i];
 
         // draw
+        ctx.globalCompositeOperation = "saturation";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
         const g = ctx.createRadialGradient(
