@@ -25,13 +25,13 @@
     var ctx = c.getContext("2d");
     ctx.globalCompositeOperation = "saturation";
     var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
-    function _bubble(cx, cy, r, dx, dy) {
+    function _bubble(cx, cy, r, dx, dy, c) {
       this.cx = cx;
       this.cy = cy;
       this.r = r;
       this.dx = dx;
       this.dy = dy;
-      this.color = parseInt(Math.random() * colors.length);
+      this.color = c;
     }
     
     var bubbles = [];
@@ -40,14 +40,15 @@
     var cnv_h = ctx.canvas.height;
     for (var i = 0; i < cnt; i++) {
       bubbles.push( 
-          new _bubble(
-            Math.random() * cnv_w, 
-            Math.random() * cnv_h,
-            Math.random() * Math.min(cnv_w, cnv_h) * 0.5,
-            Math.random() * 12 - 6,
-            Math.random() * 12 - 6
-            )
-          );
+        new _bubble(
+          Math.random() * cnv_w, 
+          Math.random() * cnv_h,
+          Math.random() * Math.min(cnv_w, cnv_h) * 0.5,
+          Math.random() * 12 - 6,
+          Math.random() * 12 - 6,
+          parseInt(Math.random() * colors.length)
+        )
+      );
     }
     
     function frame() {
@@ -56,10 +57,10 @@
       ctx.fillStyle="#fcfcfc";
       ctx.rect(0, 0, cnv_w, cnv_h);
       ctx.fill();
-      
+
       for (var i = 0; i < bubbles.length; i++) {
         var b = bubbles[i];
-        
+
         // draw
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
@@ -72,14 +73,14 @@
         ctx.fillStyle = g;
         ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
         ctx.fill();
-        
+
         // bounce
         if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  cnv_w) b.dx *= -1;
         if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cnv_h) b.dy *= -1;
         b.cx += b.dx;
         b.cy += b.dy;
       }
-      
+
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
