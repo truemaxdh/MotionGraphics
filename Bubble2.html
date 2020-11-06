@@ -52,7 +52,7 @@
     
     function frame() {
       // clear
-      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalCompositeOperation = 'lighter';
       ctx.beginPath();
       ctx.fillStyle="#fcfcfc";
       ctx.rect(0, 0, cnv_w, cnv_h);
@@ -64,7 +64,7 @@
 
         // draw
         //ctx.globalCompositeOperation = "saturation";
-        ctx.globalCompositeOperation = "soft-light";
+        ctx.globalCompositeOperation = "multiply";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
         const g = ctx.createRadialGradient(
