@@ -57,11 +57,10 @@
       ctx.fillRect(0, 0, cnv_w, cnv_h);*/
 
       for (var i = 0; i < bubbles.length; i++) {
-        console.log(3);
         var b = bubbles[i];
 
         // draw
-        ctx.globalCompositeOperation = "saturation";
+        ctx.globalCompositeOperation = (Math.random() < 0.5) ? "saturation" : "source-over";
         //ctx.globalCompositeOperation = "lighter";
         ctx.beginPath();
         //ctx.globalAlpha = 0.8;
