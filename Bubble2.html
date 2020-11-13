@@ -23,7 +23,7 @@
     // Bubbles
     var c = document.getElementById("cnv");
     var ctx = c.getContext("2d");
-    var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
+    var colors = ["255,0,0", "255,127,0", "255,255,0", "0,255,0", "0,0,255", "255,0,255", "255,127,255"];
     function _bubble(cx, cy, r, dx, dy, c) {
       this.cx = cx;
       this.cy = cy;
@@ -74,8 +74,8 @@
         const g = ctx.createRadialGradient(
           b.cx, b.cy, b.r * 0.1, b.cx, b.cy, b.r
         );
-        g.addColorStop(0, colors[b.color]);
-        g.addColorStop(1, 'transparent');
+        g.addColorStop(0, "rgba(" + colors[b.color] + ",1)");
+        g.addColorStop(1, "rgba(" + colors[b.color] + ",0)");
 
         ctx.fillStyle = g;
         ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
