@@ -34,7 +34,7 @@
     }
     
     var bubbles = [];
-    var cnt = Math.random() * 10 + 12;
+    var cnt = 5;
     var cnv_w = ctx.canvas.width;
     var cnv_h = ctx.canvas.height;
     for (var i = 0; i < cnt; i++) {
@@ -42,7 +42,7 @@
         new _bubble(
           Math.random() * cnv_w, 
           Math.random() * cnv_h,
-          Math.random() * Math.min(cnv_w, cnv_h) * 0.5,
+          Math.random() * Math.min(cnv_w, cnv_h) * 10,
           Math.random() * 12 - 6,
           Math.random() * 12 - 6,
           parseInt(Math.random() * colors.length)
