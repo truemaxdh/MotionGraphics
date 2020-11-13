@@ -20,10 +20,11 @@
     
   </body>
   <script>
-    // Bubbles
     var c = document.getElementById("cnv");
     var ctx = c.getContext("2d");
-    var colors = ["255,0,0", "255,127,0", "255,255,0", "0,255,0", "0,0,255", "255,0,255", "255,127,255"];
+    var lastTimeStamp = null;
+    
+    // Bubbles
     function _bubble(cx, cy, r, dx, dy, c) {
       this.cx = cx;
       this.cy = cy;
@@ -50,35 +51,33 @@
       );
     }
     
-    function frame() {
-      /*// clear
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, cnv_w, cnv_h);*/
+    function frame(timeStamp) {
+      if (!lastTimeStamp) lastTimeStamp = timeStamp;
+      if ((timeStamp - lastTimeStamp) > 1000) {
+        for (var i = 0; i < bubbles.length; i++) {
+          var b = bubbles[i];
 
-      for (var i = 0; i < bubbles.length; i++) {
-        var b = bubbles[i];
+          // draw
+          ctx.globalCompositeOperation = (Math.random() < 0.8) ? "saturation" : "source-over";
+          //ctx.globalCompositeOperation = "lighter";
+          ctx.beginPath();
+          //ctx.globalAlpha = 0.8;
+          const g = ctx.createRadialGradient(
+            b.cx, b.cy, b.r * 0.1, b.cx, b.cy, b.r
+          );
+          g.addColorStop(0, "rgba(" + b.color + ",1)");
+          g.addColorStop(1, "rgba(" + b.color + ",0)");
 
-        // draw
-        ctx.globalCompositeOperation = (Math.random() < 0.8) ? "saturation" : "source-over";
-        //ctx.globalCompositeOperation = "lighter";
-        ctx.beginPath();
-        //ctx.globalAlpha = 0.8;
-        const g = ctx.createRadialGradient(
-          b.cx, b.cy, b.r * 0.1, b.cx, b.cy, b.r
-        );
-        g.addColorStop(0, "rgba(" + b.color + ",1)");
-        g.addColorStop(1, "rgba(" + b.color + ",0)");
+          ctx.fillStyle = g;
+          ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
+          ctx.fill();
 
-        ctx.fillStyle = g;
-        ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // bounce
-        if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  cnv_w) b.dx *= -1;
-        if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cnv_h) b.dy *= -1;
-        b.cx += b.dx;
-        b.cy += b.dy;
+          // bounce
+          if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  cnv_w) b.dx *= -1;
+          if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cnv_h) b.dy *= -1;
+          b.cx += b.dx;
+          b.cy += b.dy;
+        }
       }
 
       requestAnimationFrame(frame);
