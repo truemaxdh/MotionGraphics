@@ -53,7 +53,7 @@
     
     function frame(timeStamp) {
       if (!lastTimeStamp) lastTimeStamp = timeStamp;
-      if ((timeStamp - lastTimeStamp) > 1000) {
+      if ((timeStamp - lastTimeStamp) > 30) {
         lastTimeStamp = timeStamp;
         for (var i = 0; i < bubbles.length; i++) {
           var b = bubbles[i];
