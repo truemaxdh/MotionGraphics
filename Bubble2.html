@@ -88,7 +88,8 @@
           b.cy += b.dy;
           
           if (--b.duration <= 0) {
-            b.gco = (Math.random() < 0.998) ? "saturation" : "source-over";
+            //b.gco = (Math.random() < 0.998) ? "saturation" : "source-over";
+            b.gco = (Math.random() < 0.5) ? "saturation" : "source-over";
             b.duration = Math.random() * 100 + 50;
           }
         }
