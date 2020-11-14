@@ -59,8 +59,8 @@
           var b = bubbles[i];
 
           // draw
-          ctx.globalCompositeOperation = (Math.random() < 0.998) ? "saturation" : "source-over";
-          //ctx.globalCompositeOperation = "lighter";
+          ctx.globalCompositeOperation = (Math.random() < 0.998) ? "saturation" : "lighten";
+          //ctx.globalCompositeOperation = "source-over";
           ctx.beginPath();
           //ctx.globalAlpha = 0.8;
           const g = ctx.createRadialGradient(
