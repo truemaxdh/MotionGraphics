@@ -2,7 +2,6 @@
 Variations of bubbles
 
 [Bubble1](Bubble1.html)
-[Bubble2](Bubble2.html)
 
 <!-- Google Adsense -->
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
