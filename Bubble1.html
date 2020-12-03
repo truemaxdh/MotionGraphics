@@ -50,61 +50,66 @@
           );
     }
     
-    function frame() {
-      // clear
-      ctx.beginPath();
-      ctx.fillStyle="#fcfcfc";
-      ctx.rect(0, 0, cnv_w, cnv_h);
-      ctx.fill();
-      
-      for (var i = 0; i < bubbles.length; i++) {
-        var b = bubbles[i];
-        
-        // draw
+    var lastTimeStamp = null;
+    function frame(timeStamp) {
+      if (!lastTimeStamp) lastTimeStamp = timeStamp;
+      if ((timeStamp - lastTimeStamp) > 30) {
+        lastTimeStamp = timeStamp;
+    
+        // clear
         ctx.beginPath();
-        //ctx.globalAlpha = 0.8;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "black";
-        ctx.lineWidth = 3;
-        ctx.strokeStyle=colors[b.color];
-        //ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
-        //ctx.stroke();
-        ctx.font = "30px Comic Sans MS";
-        ctx.fillStyle = "red";
-        ctx.textAlign = "center";
-        ctx.strokeText("ㅋ", b.cx, b.cy);
-	      
-	      
-	      
-        // collision
-        for (var j = i + 1; j < bubbles.length; j++) {
-          var b2 = bubbles[j];
-          var nCx1 = b.cx + b.dx;
-          var nCy1 = b.cy + b.dy;
-          var nCx2 = b2.cx + b2.dx;
-          var nCy2 = b2.cy + b2.dy;
-          var d_sqr = (nCx2 - nCx1)*(nCx2 - nCx1) + (nCy2 - nCy1)*(nCy2 - nCy1);
-          var d_chk = (b.r + b2.r)*(b.r + b2.r); 
-          if (d_sqr < d_chk) {
-            var tmp = b.dx + 0;
-            b.dx = b2.dx;
-            b2.dx = tmp;
-            tmp = b.dy + 0;
-            b.dy = b2.dy;
-            b2.dy = tmp;
-            if (++b.color >= colors.length) b.color = 0;
-            if (++b2.color >= colors.length) b2.color = 0;
+        ctx.fillStyle="#fcfcfc";
+        ctx.rect(0, 0, cnv_w, cnv_h);
+        ctx.fill();
+
+        for (var i = 0; i < bubbles.length; i++) {
+          var b = bubbles[i];
+
+          // draw
+          ctx.beginPath();
+          //ctx.globalAlpha = 0.8;
+          ctx.shadowBlur = 10;
+          ctx.shadowColor = "black";
+          ctx.lineWidth = 3;
+          ctx.strokeStyle=colors[b.color];
+          //ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
+          //ctx.stroke();
+          ctx.font = "30px Comic Sans MS";
+          ctx.fillStyle = "red";
+          ctx.textAlign = "center";
+          ctx.strokeText("ㅋ", b.cx, b.cy);
+
+
+
+          // collision
+          for (var j = i + 1; j < bubbles.length; j++) {
+            var b2 = bubbles[j];
+            var nCx1 = b.cx + b.dx;
+            var nCy1 = b.cy + b.dy;
+            var nCx2 = b2.cx + b2.dx;
+            var nCy2 = b2.cy + b2.dy;
+            var d_sqr = (nCx2 - nCx1)*(nCx2 - nCx1) + (nCy2 - nCy1)*(nCy2 - nCy1);
+            var d_chk = (b.r + b2.r)*(b.r + b2.r); 
+            if (d_sqr < d_chk) {
+              var tmp = b.dx + 0;
+              b.dx = b2.dx;
+              b2.dx = tmp;
+              tmp = b.dy + 0;
+              b.dy = b2.dy;
+              b2.dy = tmp;
+              if (++b.color >= colors.length) b.color = 0;
+              if (++b2.color >= colors.length) b2.color = 0;
+            }
+            if (d_sqr < (d_chk / 4)) {
+              if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
+            }
           }
-          if (d_sqr < (d_chk / 4)) {
-            if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
-          }
+          if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  cnv_w) b.dx *= -1;
+          if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cnv_h) b.dy *= -1;
+          b.cx += b.dx;
+          b.cy += b.dy;
         }
-        if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  cnv_w) b.dx *= -1;
-        if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cnv_h) b.dy *= -1;
-        b.cx += b.dx;
-        b.cy += b.dy;
       }
-      
       requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
