@@ -67,9 +67,15 @@
         ctx.shadowColor = "black";
         ctx.lineWidth = 3;
         ctx.strokeStyle=colors[b.color];
-        ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
-        ctx.stroke();
-        
+        //ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
+        //ctx.stroke();
+        ctx.font = "30px Comic Sans MS";
+        ctx.fillStyle = "red";
+        ctx.textAlign = "center";
+        ctx.strokeText("ㅋ", b.cx, b.cy);
+	      
+	      
+	      
         // collision
         for (var j = i + 1; j < bubbles.length; j++) {
           var b2 = bubbles[j];
