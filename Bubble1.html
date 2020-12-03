@@ -25,12 +25,13 @@
     var ctx = c.getContext("2d");
     
     var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
-    function _bubble(cx, cy, r, dx, dy) {
+    function _bubble(cx, cy, r, dx, dy, size) {
       this.cx = cx;
       this.cy = cy;
       this.r = r;
       this.dx = dx;
       this.dy = dy;
+	    this.size = size;
       this.color = 0;
     }
     
@@ -43,7 +44,7 @@
           new _bubble(
             Math.random() * cnv_w, 
             Math.random() * cnv_h,
-            Math.min(cnv_w, cnv_h) / 20,
+            Math.min(cnv_w, cnv_h) / 20 * (1 + Math.random()),
             Math.random() * 12 - 6,
             Math.random() * 12 - 6
             )
@@ -74,8 +75,8 @@
           ctx.strokeStyle=colors[b.color];
           //ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
           //ctx.stroke();
-          ctx.font = "30px Comic Sans MS";
-          ctx.fillStyle = "red";
+          ctx.font = b.r + "px Comic Sans MS";
+          //ctx.fillStyle = "red";
           ctx.textAlign = "center";
           ctx.strokeText("ㅋ", b.cx, b.cy);
 
