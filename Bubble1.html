@@ -25,13 +25,14 @@
     var ctx = c.getContext("2d");
     
     var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
-    function _bubble(consonant, cx, cy, r, dx, dy) {
+    function _bubble(consonant, cx, cy, r, dx, dy, style) {
       this.consonant = consonant;
       this.cx = cx;
       this.cy = cy;
       this.r = r;
       this.dx = dx;
       this.dy = dy;
+      this.style = style;
       this.color = 0;
     }
     
@@ -47,7 +48,8 @@
           Math.random() * cnv_h,
           Math.min(cnv_w, cnv_h) / 20 * (1 + Math.random()),
           (Math.random() - 0.5) * Math.min(cnv_w, cnv_h) / 20,
-          (Math.random() - 0.5) * Math.min(cnv_w, cnv_h) / 20
+          (Math.random() - 0.5) * Math.min(cnv_w, cnv_h) / 20,
+          (Math.random() >= 0.5) ? "fill" : "stroke";
         )
       );
     }
@@ -60,7 +62,7 @@
     
         // clear
         ctx.beginPath();
-        ctx.fillStyle="#fcfcfc";
+        ctx.fillStyle="black";
         ctx.rect(0, 0, cnv_w, cnv_h);
         ctx.fill();
 
@@ -73,15 +75,20 @@
           ctx.shadowBlur = 10;
           ctx.shadowColor = "black";
           ctx.lineWidth = 3;
-          ctx.strokeStyle=colors[b.color];
           //ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
           //ctx.stroke();
-          ctx.font = (2 * b.r) + "px Comic Sans MS";
           //ctx.fillStyle = "red";
-          ctx.textAlign = "center";
-          ctx.strokeText(b.consonant, b.cx, b.cy);
-
-
+          if (b.style == "fill") {
+            ctx.fillStyle=colors[b.color];
+            ctx.font = (2 * b.r) + "px Comic Sans MS";
+            ctx.textAlign = "center";
+            ctx.fillText(b.consonant, b.cx, b.cy);
+          } else {
+            ctx.strokeStyle=colors[b.color];
+            ctx.font = (2 * b.r) + "px Comic Sans MS";
+            ctx.textAlign = "center";
+            ctx.strokeText(b.consonant, b.cx, b.cy);
+          }
 
           // collision
           for (var j = i + 1; j < bubbles.length; j++) {
@@ -101,6 +108,7 @@
               b2.dy = tmp;
               if (++b.color >= colors.length) b.color = 0;
               if (++b2.color >= colors.length) b2.color = 0;
+              
             }
             if (d_sqr < (d_chk / 4)) {
               if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
