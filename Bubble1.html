@@ -17,7 +17,7 @@
   <body>
     <!-- // Bubbles -->
     <canvas id="cnv" width="800" height="600" style="border:1px solid #73AD21;border-radius:10px;">CANVAS NOT SUPPORTED</canvas>
-		
+    
   </body>
   <script>
     // Bubbles
@@ -31,7 +31,7 @@
       this.r = r;
       this.dx = dx;
       this.dy = dy;
-	    this.size = size;
+      this.size = size;
       this.color = 0;
     }
     
@@ -41,14 +41,14 @@
     var cnv_h = ctx.canvas.height;
     for (var i = 0; i < cnt; i++) {
       bubbles.push( 
-          new _bubble(
-            Math.random() * cnv_w, 
-            Math.random() * cnv_h,
-            Math.min(cnv_w, cnv_h) / 20 * (1 + Math.random()),
-            Math.random() * 12 - 6,
-            Math.random() * 12 - 6
-            )
-          );
+        new _bubble(
+          Math.random() * cnv_w, 
+          Math.random() * cnv_h,
+          Math.min(cnv_w, cnv_h) / 20 * (1 + Math.random()),
+          (Math.random() - 0.5) * Math.min(cnv_w, cnv_h) / 20,
+          (Math.random() - 0.5) * Math.min(cnv_w, cnv_h) / 20
+        )
+      );
     }
     
     var lastTimeStamp = null;
