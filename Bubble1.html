@@ -25,7 +25,8 @@
     var ctx = c.getContext("2d");
     
     var colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
-    function _bubble(cx, cy, r, dx, dy, size) {
+    function _bubble(consonant, cx, cy, r, dx, dy, size) {
+      this.consonant = consonant;
       this.cx = cx;
       this.cy = cy;
       this.r = r;
@@ -42,6 +43,7 @@
     for (var i = 0; i < cnt; i++) {
       bubbles.push( 
         new _bubble(
+          "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ"[Math.random() * 14)],
           Math.random() * cnv_w, 
           Math.random() * cnv_h,
           Math.min(cnv_w, cnv_h) / 10 * (1 + Math.random()),
