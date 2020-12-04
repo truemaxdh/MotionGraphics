@@ -1,7 +1,7 @@
-# Bubbles
-Variations of bubbles
+# MotionGraphics
+Sketches of Motion Graphics 
 
-[Bubble1](Bubble1.html)
+[HanguelBounce](HanguelBounce.html)
 
 <!-- Google Adsense -->
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
