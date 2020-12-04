@@ -19,12 +19,19 @@
     <link rel="stylesheet" href="https://truemaxdh.github.io/Style/skin.css">
     
     <script src="js/HanguelBounce.js"></script>
+    <script src="js/BalloonsUp.js"></script>
     
     <script>
       function demo_hanguelBounce() {
         var el = document.getElementById("board");
         el.innerHTML = "";
         motionGraphics.hanguelBounce(el);
+      }
+      
+      function demo_balloonsUp() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        motionGraphics.balloonsUp(el);
       }
       
       window.onload = function() {
@@ -47,6 +54,7 @@
       {{content}}
       <br>
       <a href="javascript:demo_hanguelBounce();">HanguelBounce</a>
+      <a href="javascript:demo_balloonsUp();">BalloonsUp</a>
       
       <div id="board" style="width:800px; height:600px;"></div>
       <br>
