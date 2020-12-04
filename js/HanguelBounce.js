@@ -108,6 +108,8 @@ motionGraphics.hanguelBounce = function(el) {
             b2.dy = tmp;
             b.bgr = {r:b.getNewC(b.bgr.r), g:b.getNewC(b.bgr.g), b:b.getNewC(b.bgr.b)};
             b2.bgr = {r:b2.getNewC(b2.bgr.r), g:b2.getNewC(b2.bgr.g), b:b2.getNewC(b2.bgr.b)};
+            b.style = (Math.random() >= 0.5) ? "fill" : "stroke";
+            b2.style = (Math.random() >= 0.5) ? "fill" : "stroke"
           }
           if (d_sqr < (d_chk / 4)) {
             if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
