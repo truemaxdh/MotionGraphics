@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81183833-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-81183833-2');
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SpecialEffects - Samples of special effects based on HTML and javascript</title>
+    <meta name="description" content="SpecialEffects, Samples of special effects based on HTML and javascript" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://truemaxdh.github.io/icon.png" type="image/png">
+    <link rel="stylesheet" href="https://truemaxdh.github.io/Style/skin.css">
+    
+    <script src="js/ScratchMosaic.js"></script>
+    <script src="js/LighterOverlay.js"></script>
+    <script src="js/Afterimage.js"></script>
+    <script src="js/Fireworks.js"></script>
+    <script src="js/Aurora.js"></script>
+    <script src="js/FierySun.js"></script>
+    
+    <script>
+      function demo_scratchMosaic() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.scratchMosaic(
+          el,
+          "Special Effects Sample",
+          "20px Arial",
+          "darkorange",
+          "Scratch Mosaic",
+          "15px Arial",
+          "darkorange",
+          "black",
+          "lightskyblue"
+        );
+      }
+      
+      function demo_lighterOverlay() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.lighterOverlay(el, 200, "black");
+      }
+      
+      function demo_afterimage() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.afterimage(el);
+      }
+      
+      function demo_fireworks() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.fireworks(el);
+      }
+      
+      function demo_aurora() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.aurora(el);
+      }
+            
+      function demo_fierysun() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        specialEffects.fierysun(el);
+      }
+      
+      window.onload = function() {
+        var _href = window.location.href;
+        var _split = _href.split("#");
+        if (_split.length < 2) {
+          demo_scratchMosaic();
+        } else {
+          eval("demo_" + _split[1] + "();" );
+        }        
+      }
+    </script>
+
+  </head>
+  <body>  
+    <script>var cookieBread = ">Arts>SpecialEffects";</script>
+    <script src="https://truemaxdh.github.io/Include/header.js"></script>
+
+    <center>
+      {{content}}
+      <br>
+      <a href="javascript:demo_hanguelBounce();">HanguelBounc</a>
+      
+      <div id="board" style="width:800px; height:600px;"></div>
+      <br>
+      <a class="normalBtn" href="https://github.com/truemaxdh/MotionGraphics">GitHub</a>
+    </center>
+    <br>
+    
+    <!--Google AdSense -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- AutoResponse -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7307479428475282"
+         data-ad-slot="8718898251"
+         data-ad-format="auto"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </body>
+</html>
