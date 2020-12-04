@@ -36,13 +36,13 @@ motionGraphics.balloonsUp = function(el) {
   obj.cnt = Math.random() * 10 + 12;
   
   for (var i = 0; i < obj.cnt; i++) {
-    obj.bubbles.push( 
-      new _bubble(
+    obj.baloons.push( 
+      new _balloon(
         Math.random() * obj.w, 
         obj.h,
         Math.min(obj.w, obj.h) / 20 * (1 + Math.random()),
         0,
-        (Math.random() - 0.5) * Math.min(obj.w, obj.h) / 20        
+        Math.random() * obj.h / 100        
       )
     );
   }
