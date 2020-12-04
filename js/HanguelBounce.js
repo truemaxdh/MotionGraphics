@@ -65,7 +65,7 @@ motionGraphics.hanguelBounce = function(el) {
         // draw
         obj.ctx.beginPath();
         //obj.ctx.globalAlpha = 0.8;
-        obj.ctx.shadowBlur = 10;
+        obj.ctx.shadowBlur = 5;
         obj.ctx.shadowColor = "white";
         //obj.ctx.lineWidth = 3;
         //obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
