@@ -82,13 +82,13 @@ motionGraphics.balloonsUp = function(el) {
         
         if (b.cy < -100) {
           obj.baloons.slice(i--);
-          obj.bubbles.push( 
-            new _bubble(
+          obj.baloons.push( 
+            new _balloon(
               Math.random() * obj.w, 
               obj.h,
               Math.min(obj.w, obj.h) / 20 * (1 + Math.random()),
               0,
-              - (Math.random() * obj.h / 100 + 1)        
+              - (Math.random() * obj.h / 100 + 1) 
             )
           );
         }
