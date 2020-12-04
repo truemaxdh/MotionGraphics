@@ -108,7 +108,7 @@ motionGraphics.hanguelBounce = function(el) {
           }
         }
         if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  obj.w) b.dx *= -1;
-        if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  cobj.h) b.dy *= -1;
+        if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  obj.h) b.dy *= -1;
         b.cx += b.dx;
         b.cy += b.dy;
       }
