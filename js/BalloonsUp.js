@@ -42,7 +42,7 @@ motionGraphics.balloonsUp = function(el) {
         obj.h,
         Math.min(obj.w, obj.h) / 20 * (1 + Math.random()),
         0,
-        - Math.random() * obj.h / 100        
+        - (Math.random() * obj.h / 100 + 1) 
       )
     );
   }
