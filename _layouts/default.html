@@ -18,65 +18,20 @@
     <link rel="icon" href="https://truemaxdh.github.io/icon.png" type="image/png">
     <link rel="stylesheet" href="https://truemaxdh.github.io/Style/skin.css">
     
-    <script src="js/ScratchMosaic.js"></script>
-    <script src="js/LighterOverlay.js"></script>
-    <script src="js/Afterimage.js"></script>
-    <script src="js/Fireworks.js"></script>
-    <script src="js/Aurora.js"></script>
-    <script src="js/FierySun.js"></script>
+    <script src="js/HanguelBounce.js"></script>
     
     <script>
-      function demo_scratchMosaic() {
+      function demo_hanguelBounce() {
         var el = document.getElementById("board");
         el.innerHTML = "";
-        specialEffects.scratchMosaic(
-          el,
-          "Special Effects Sample",
-          "20px Arial",
-          "darkorange",
-          "Scratch Mosaic",
-          "15px Arial",
-          "darkorange",
-          "black",
-          "lightskyblue"
-        );
-      }
-      
-      function demo_lighterOverlay() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        specialEffects.lighterOverlay(el, 200, "black");
-      }
-      
-      function demo_afterimage() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        specialEffects.afterimage(el);
-      }
-      
-      function demo_fireworks() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        specialEffects.fireworks(el);
-      }
-      
-      function demo_aurora() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        specialEffects.aurora(el);
-      }
-            
-      function demo_fierysun() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        specialEffects.fierysun(el);
+        motionGraphics.hanguelBounce(el);
       }
       
       window.onload = function() {
         var _href = window.location.href;
         var _split = _href.split("#");
         if (_split.length < 2) {
-          demo_scratchMosaic();
+          demo_hanguelBounce();
         } else {
           eval("demo_" + _split[1] + "();" );
         }        
@@ -85,13 +40,13 @@
 
   </head>
   <body>  
-    <script>var cookieBread = ">Arts>SpecialEffects";</script>
+    <script>var cookieBread = ">Arts>MotionGraphics";</script>
     <script src="https://truemaxdh.github.io/Include/header.js"></script>
 
     <center>
       {{content}}
       <br>
-      <a href="javascript:demo_hanguelBounce();">HanguelBounc</a>
+      <a href="javascript:demo_hanguelBounce();">HanguelBounce</a>
       
       <div id="board" style="width:800px; height:600px;"></div>
       <br>
