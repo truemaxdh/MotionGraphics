@@ -48,7 +48,7 @@ motionGraphics.hanguelBounce = function(el) {
     );
   }
   
-  obj.drawFrm = function() {
+  obj.drawFrm = function(timeStamp) {
     if (!obj.lastTimeStamp) obj.lastTimeStamp = timeStamp;
     if ((timeStamp - obj.lastTimeStamp) > 30) {
       obj.lastTimeStamp = timeStamp;
