@@ -2,7 +2,7 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
-function _bubble(consonant, cx, cy, r, dx, dy, style) {
+function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   this.consonant = consonant;
   this.cx = cx;
   this.cy = cy;
@@ -38,12 +38,12 @@ motionGraphics.hanguelBounce = function(el) {
   obj.w = cnv.width;
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
-  obj.bubbles = [];
+  obj.hanguels = [];
   obj.cnt = Math.random() * 10 + 12;
   
   for (var i = 0; i < obj.cnt; i++) {
-    obj.bubbles.push( 
-      new _bubble(
+    obj.hanguels.push( 
+      new _hanguel(
         "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ"[Math.floor(Math.random() * 14)],
         Math.random() * obj.w, 
         Math.random() * obj.h,
@@ -66,8 +66,8 @@ motionGraphics.hanguelBounce = function(el) {
       obj.ctx.rect(0, 0, obj.w, obj.h);
       obj.ctx.fill();
 
-      for (var i = 0; i < obj.bubbles.length; i++) {
-        var b = obj.bubbles[i];
+      for (var i = 0; i < obj.hanguels.length; i++) {
+        var b = obj.hanguels[i];
 
         // draw
         obj.ctx.beginPath();
@@ -91,8 +91,8 @@ motionGraphics.hanguelBounce = function(el) {
         }
 
         // collision
-        for (var j = i + 1; j < obj.bubbles.length; j++) {
-          var b2 = obj.bubbles[j];
+        for (var j = i + 1; j < obj.hanguels.length; j++) {
+          var b2 = obj.hanguels[j];
           var nCx1 = b.cx + b.dx;
           var nCy1 = b.cy + b.dy;
           var nCx2 = b2.cx + b2.dx;
