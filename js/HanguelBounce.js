@@ -1,4 +1,4 @@
-if (typeof motionGraphics === 'undefined' || !specialEffects) {
+if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
