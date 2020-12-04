@@ -72,12 +72,12 @@ motionGraphics.hanguelBounce = function(el) {
         //obj.ctx.stroke();
         //obj.ctx.fillStyle = "red";
         if (b.style == "fill") {
-          obj.ctx.fillStyle=colors[b.color];
+          obj.ctx.fillStyle = obj.colors[b.color];
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
           obj.ctx.fillText(b.consonant, b.cx, b.cy);
         } else {
-          obj.ctx.strokeStyle=colors[b.color];
+          obj.ctx.strokeStyle = obj.colors[b.color];
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
           obj.ctx.strokeText(b.consonant, b.cx, b.cy);
