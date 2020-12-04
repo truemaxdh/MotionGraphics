@@ -10,7 +10,15 @@ function _bubble(consonant, cx, cy, r, dx, dy, style) {
   this.dx = dx;
   this.dy = dy;
   this.style = style;
-  this.color = 0;
+  this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
+  this.getNewC = function(c) {
+    if (c == -1)
+      return Math.random() * 256;
+    c += Math.random() * 5 - 2;
+    if (c < 127) c = 127;
+    if (c > 255) c = 255;
+    return c;
+  }
 }
 
 motionGraphics.hanguelBounce = function(el) {
@@ -30,7 +38,6 @@ motionGraphics.hanguelBounce = function(el) {
   obj.w = cnv.width;
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
-  obj.colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"];
   obj.bubbles = [];
   obj.cnt = Math.random() * 10 + 12;
   
@@ -72,12 +79,12 @@ motionGraphics.hanguelBounce = function(el) {
         //obj.ctx.stroke();
         //obj.ctx.fillStyle = "red";
         if (b.style == "fill") {
-          obj.ctx.fillStyle = obj.colors[b.color];
+          obj.ctx.fillStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
           obj.ctx.fillText(b.consonant, b.cx, b.cy);
         } else {
-          obj.ctx.strokeStyle = obj.colors[b.color];
+          obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
           obj.ctx.strokeText(b.consonant, b.cx, b.cy);
@@ -99,9 +106,8 @@ motionGraphics.hanguelBounce = function(el) {
             tmp = b.dy + 0;
             b.dy = b2.dy;
             b2.dy = tmp;
-            if (++b.color >= obj.colors.length) b.color = 0;
-            if (++b2.color >= obj.colors.length) b2.color = 0;
-
+            b.bgr = {r:b.getNewC(b.bgr.r), g:b.getNewC(b.bgr.g), b:b.getNewC(b.bgr.b)};
+            b2.bgr = {r:b2.getNewC(b2.bgr.r), g:b2.getNewC(b2.bgr.g), b:b2.getNewC(b2.bgr.b)};
           }
           if (d_sqr < (d_chk / 4)) {
             if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
