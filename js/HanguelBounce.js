@@ -10,7 +10,6 @@ function _bubble(consonant, cx, cy, r, dx, dy, style) {
   this.dx = dx;
   this.dy = dy;
   this.style = style;
-  this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
   this.getNewC = function(c) {
     if (c == -1)
       return Math.random() * 256;
@@ -19,6 +18,7 @@ function _bubble(consonant, cx, cy, r, dx, dy, style) {
     if (c > 255) c = 255;
     return c;
   }
+  this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
 motionGraphics.hanguelBounce = function(el) {
