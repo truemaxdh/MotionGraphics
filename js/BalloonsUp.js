@@ -71,6 +71,7 @@ motionGraphics.balloonsUp = function(el) {
           obj.ctx.moveTo(b.cx, b.cy + b.r);
           obj.ctx.lineTo(b.cx - b.r / 5, b.cy + b.r * 1.2);
           obj.ctx.lineTo(b.cx + b.r / 5, b.cy + b.r * 1.2);
+          obj.ctx.lineTo(b.cx, b.cy + b.r);
           obj.ctx.fill();
         } else {
           obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
@@ -79,6 +80,7 @@ motionGraphics.balloonsUp = function(el) {
           obj.ctx.moveTo(b.cx, b.cy + b.r);
           obj.ctx.lineTo(b.cx - b.r * 0.2, b.cy + b.r * 1.2);
           obj.ctx.lineTo(b.cx + b.r * 0.2, b.cy + b.r * 1.2);
+          obj.ctx.lineTo(b.cx, b.cy + b.r);
           obj.ctx.stroke();
         }
         
