@@ -63,18 +63,31 @@ motionGraphics.balloonsUp = function(el) {
         var b = obj.baloons[i];
 
         // draw
-        obj.ctx.beginPath();
         //obj.ctx.globalAlpha = 0.8;
         obj.ctx.shadowBlur = 5;
         obj.ctx.shadowColor = "white";
         if (b.style == "fill") {
+          obj.ctx.beginPath();
           obj.ctx.fillStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
           obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
           obj.ctx.fill();
+
+          obj.ctx.beginPath();
+          obj.ctx.moveTo(b.cx, b.cy + b.r);
+          obj.ctx.lineTo(b.cx - b.r / 5, b.cy + b.r * 1.2);
+          obj.ctx.lineTo(b.cx + b.r / 5, b.cy + b.r * 1.2);
+          obj.ctx.fill();
         } else {
+          obj.ctx.beginPath();
           obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
           obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
           obj.ctx.stroke();
+          
+          obj.ctx.beginPath();
+          obj.ctx.moveTo(b.cx, b.cy + b.r);
+          obj.ctx.lineTo(b.cx - b.r / 5, b.cy + b.r * 1.2);
+          obj.ctx.lineTo(b.cx + b.r / 5, b.cy + b.r * 1.2);
+          obj.ctx.fill();
         }
 
         // collision
