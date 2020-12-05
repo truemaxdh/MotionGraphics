@@ -36,11 +36,12 @@ motionGraphics.balloonsUp = function(el) {
   obj.cnt = Math.random() * 10 + 12;
   
   for (var i = 0; i < obj.cnt; i++) {
+    var r = Math.min(obj.w, obj.h) / 20 * (1 + Math.random());
     obj.baloons.push( 
       new _balloon(
         Math.random() * obj.w, 
-        obj.h,
-        Math.min(obj.w, obj.h) / 20 * (1 + Math.random()),
+        obj.h + r,
+        r,
         0,
         - (Math.random() * obj.h / 100 + 1) 
       )
@@ -82,11 +83,12 @@ motionGraphics.balloonsUp = function(el) {
         
         if (b.cy < -100) {
           obj.baloons.splice(i--,1);
+          var r = Math.min(obj.w, obj.h) / 20 * (1 + Math.random());
           obj.baloons.push( 
             new _balloon(
               Math.random() * obj.w, 
-              obj.h,
-              Math.min(obj.w, obj.h) / 20 * (1 + Math.random()),
+              obj.h + r,
+              r,
               0,
               - (Math.random() * obj.h / 100 + 1) 
             )
