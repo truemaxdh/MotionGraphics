@@ -83,9 +83,12 @@ motionGraphics.balloonsUp = function(el) {
         }
         
         obj.ctx.beginPath();
+        obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
         obj.ctx.moveTo(b.cx, b.cy + b.r * 1.2);
-        obj.ctx.quadraticCurveTo(b.cx + b.r * 0.2, b.cy + b.r * 1.4, b.cx, b.cy + b.r * 1.6);
-        obj.ctx.quadraticCurveTo(b.cx - b.r * 0.2, b.cy + b.r * 1.8, b.cx, b.cy + b.r * 2.0);
+        obj.ctx.quadraticCurveTo(b.cx + b.r * 0.15, b.cy + b.r * 1.45, b.cx, b.cy + b.r * 1.7);
+        obj.ctx.quadraticCurveTo(b.cx - b.r * 0.15, b.cy + b.r * 1.95, b.cx, b.cy + b.r * 2.2);
+        obj.ctx.quadraticCurveTo(b.cx + b.r * 0.15, b.cy + b.r * 2.45, b.cx, b.cy + b.r * 2.7);
+        obj.ctx.quadraticCurveTo(b.cx - b.r * 0.15, b.cy + b.r * 2.95, b.cx, b.cy + b.r * 3.2);
         obj.ctx.stroke();
         
         // collision
