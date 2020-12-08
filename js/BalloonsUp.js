@@ -43,7 +43,7 @@ motionGraphics.balloonsUp = function(el) {
         obj.h + r,
         r,
         0,
-        - (Math.random() * obj.h / 60 + 1) 
+        - (Math.random() * obj.h / 70 + 1) 
       )
     );
   }
@@ -106,7 +106,7 @@ motionGraphics.balloonsUp = function(el) {
               obj.h + r,
               r,
               0,
-              - (Math.random() * obj.h / 60 + 1) 
+              - (Math.random() * obj.h / 70 + 1) 
             )
           );
         }
