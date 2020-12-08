@@ -25,6 +25,7 @@ motionGraphics.balloonsUp = function(el) {
     cnv.height = cnv.style.height.replace("px","");
     obj.w = cnv.width;
     obj.h = cnv.height;
+    console.log(obj.w);
   }
   
   console.log(el.style);
@@ -45,7 +46,7 @@ motionGraphics.balloonsUp = function(el) {
   obj.lastTimeStamp = null;
   obj.baloons = [];
   obj.cnt = Math.random() * 10 + 12;
-  
+  console.log(obj.w);
   for (var i = 0; i < obj.cnt; i++) {
     var r = Math.min(obj.w, obj.h) / 20 * (1 + Math.random());
     obj.baloons.push( 
