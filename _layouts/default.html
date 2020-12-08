@@ -34,6 +34,29 @@
         motionGraphics.balloonsUp(el);
       }
       
+      var fullScreen = false;
+      function toggleFullScreen() {
+        var el = document.getElementById("board");
+        if (fullScreen) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+          }
+          fullScreen = false;
+        } else {
+          if (el.requestFullscreen) {
+            el.requestFullscreen();
+          } else if (el.webkitRequestFullscreen) { /* Safari */
+            el.webkitRequestFullscreen();
+          } else if (el.msRequestFullscreen) { /* IE11 */
+            el.msRequestFullscreen();
+          }
+          fullScreen = true;
+        }
+      }
       window.onload = function() {
         var _href = window.location.href;
         var _split = _href.split("#");
@@ -56,7 +79,7 @@
       <a href="javascript:demo_hanguelBounce();">HanguelBounce</a>
       <a href="javascript:demo_balloonsUp();">BalloonsUp</a>
       
-      <div id="board" style="width:800px; height:600px;"></div>
+      <div id="board" style="width:800px; height:600px;" ondblclick="toggleFullScreen();></div>
       <br>
       <a class="normalBtn" href="https://github.com/truemaxdh/MotionGraphics">GitHub</a>
     </center>
