@@ -2,7 +2,7 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
-function _balloon(cx, cy, r, dx, dy) {
+function _light(cx, cy, r) {
   this.cx = cx;
   this.cy = cy;
   this.r = r;
@@ -15,7 +15,7 @@ function _balloon(cx, cy, r, dx, dy) {
   this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
-motionGraphics.balloonsUp = function(el) {
+motionGraphics.xMasTree = function(el) {
   motionGraphics.resize = function(el) {
     if (fullScreen) {
       el.style.width = screen.width + "px";
@@ -24,7 +24,7 @@ motionGraphics.balloonsUp = function(el) {
       el.style.width = "800px";
       el.style.height = "600px";
     }
-    var obj = this.balloonsUp;
+    var obj = this.xMasTree;
     var cnv = obj.ctx.canvas;
     cnv.style.width = el.style.width;
     cnv.style.height = el.style.height;
