@@ -16,9 +16,13 @@ function _balloon(cx, cy, r, dx, dy) {
 }
 
 motionGraphics.balloonsUp = function(el) {
-  motionGraphics.resize = function() {
+  motionGraphics.resize = function(el) {
     var obj = this.balloonsUp;
     var cnv = obj.ctx.canvas;
+    cnv.style.width = el.style.width;
+    cnv.style.height = el.style.height;
+    cnv.width = cnv.style.width.replace("px","");
+    cnv.height = cnv.style.height.replace("px","");
     obj.w = cnv.width;
     obj.h = cnv.height;
   }
