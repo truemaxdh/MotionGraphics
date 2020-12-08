@@ -1,11 +1,5 @@
 if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
-  motionGraphics.resize = function() {
-    var obj = this.balloonsUp;
-    var cnv = obj.ctx.canvas;
-    obj.w = cnv.width;
-    obj.h = cnv.height;
-  }
 }
 
 function _balloon(cx, cy, r, dx, dy) {
@@ -22,8 +16,15 @@ function _balloon(cx, cy, r, dx, dy) {
 }
 
 motionGraphics.balloonsUp = function(el) {
+  motionGraphics.resize = function() {
+    var obj = this.balloonsUp;
+    var cnv = obj.ctx.canvas;
+    obj.w = cnv.width;
+    obj.h = cnv.height;
+  }
+  
   console.log(el.style);
-
+  
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
   cnv.style.width = el.style.width;
