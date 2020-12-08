@@ -19,10 +19,10 @@ motionGraphics.balloonsUp = function(el) {
   motionGraphics.resize = function(el) {
     var obj = this.balloonsUp;
     var cnv = obj.ctx.canvas;
-    cnv.style.width = el.style.width;
-    cnv.style.height = el.style.height;
-    cnv.width = cnv.style.width.replace("px","");
-    cnv.height = cnv.style.height.replace("px","");
+    //cnv.style.width = el.style.width;
+    //cnv.style.height = el.style.height;
+    cnv.width = el.offsetWidth;
+    cnv.height = el.offsetHeight;
     obj.w = cnv.width;
     obj.h = cnv.height;
     console.log(obj.w);
