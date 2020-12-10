@@ -53,7 +53,7 @@ motionGraphics.xMasTree = function(el) {
   obj.cnt = Math.random() * 10 + 12;
   console.log(obj.w);
   for (var i = 0; i < obj.cnt; i++) {
-    var r = Math.min(obj.w, obj.h) / 20 * (1 + Math.random());
+    var r = Math.min(obj.w, obj.h) / 50 * (1 + Math.random());
     obj.lights.push( 
       new _balloon(
         Math.random() * obj.w, 
@@ -77,10 +77,15 @@ motionGraphics.xMasTree = function(el) {
       obj.ctx.beginPath();
       obj.ctx.fillStyle = "ForestGreen";
       for (var i = 0; i < 3; i++) {
-        obj.ctx.moveTo(obj.w / 2, obj.h / 20 * (i * 3 + 1) );
-        obj.ctx.lineTo(obj.w / 2 - obj.w / 5, obj.h / 20 * (i * 3 + 2) );
-        obj.ctx.lineTo(obj.w / 2 + obj.w / 5, obj.h / 20 * (i * 3 + 2) );
+        obj.ctx.moveTo(obj.w / 2, obj.h / 10 * (i * 3 + 1) );
+        obj.ctx.lineTo(obj.w / 2 - obj.w / 5, obj.h / 10 * (i * 3 + 3) );
+        obj.ctx.lineTo(obj.w / 2 + obj.w / 5, obj.h / 10 * (i * 3 + 3) );
       }
+      obj.ctx.fill();
+      
+      obj.ctx.beginPath();
+      obj.ctx.fillStyle = "Brown";
+      obj.ctx.rect(obj.w / 2 - obj.w / 20, obj.h / 10 * (3 * 3 + 1), obj.w / 10, obj.h / 10 * 3);
       obj.ctx.fill();
       
       for (var i = 0; i < obj.lights.length; i++) {
