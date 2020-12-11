@@ -66,15 +66,7 @@ motionGraphics.xMasTree = function(el) {
         var xy = [Math.random() * obj.w, Math.random() * obj.h];
         var p = obj.ctx.getImageData(xy[0], xy[1], 1, 1).data;
         console.log(p);
-        var lightGreen = [34, 139, 34, 255];
-        var cmpColor = true;
-        for (var i = 0; i < 4; i++) {
-          if (p[i] != lightGreen[i]) {
-            cmpColor = false;
-            break;
-          }
-        }
-        if (cmpColor) {
+        if (p.join() == [34, 139, 34, 255].join()) {
           var r = Math.min(dw, dh) * (1 + Math.random());
           obj.lights.push( 
             new _light(xy[0], xy[1], r)
