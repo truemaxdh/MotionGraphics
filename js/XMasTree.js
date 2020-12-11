@@ -50,7 +50,7 @@ motionGraphics.xMasTree = function(el) {
       var dh = obj.h / 100;
       obj.ctx.beginPath();
       obj.ctx.fillStyle = "Brown";
-      obj.ctx.rect(dw * 50 - dw * 4, dh * 64, dw * 8, dh * 16);
+      obj.ctx.rect(dw * 50 - dw * 4, dh * 64, dw * 8, dh * 20);
       obj.ctx.fill();
       
       obj.ctx.beginPath();
