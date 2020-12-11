@@ -22,26 +22,9 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
 }
 
 motionGraphics.hanguelBounce = function(el) {
-  motionGraphics.resize = function(el) {
-    if (fullScreen) {
-      el.style.width = screen.width + "px";
-      el.style.height = screen.height + "px";
-    } else {
-      el.style.width = "800px";
-      el.style.height = "600px";
-    }
-    var obj = this.balloonsUp;
-    var cnv = obj.ctx.canvas;
-    cnv.style.width = el.style.width;
-    cnv.style.height = el.style.height;
-    cnv.width = cnv.style.width.replace("px","");
-    cnv.height = cnv.style.height.replace("px","");
-    obj.w = cnv.width;
-    obj.h = cnv.height;
-    console.log(obj.w);
-  }
-  
   console.log(el.style);
+  
+  motionGraphics.runningObj = this.hanguelBounce;
 
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
