@@ -13,6 +13,13 @@ function _light(cx, cy, r) {
   this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
+function _snow(cx, cy, r, dy) {
+  this.cx = cx;
+  this.cy = cy;
+  this.r = r;
+  this.dy = dy;
+}
+
 motionGraphics.xMasTree = function(el) {
   console.log(el.style);
   
