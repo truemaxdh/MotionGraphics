@@ -34,17 +34,6 @@ motionGraphics.xMasTree = function(el) {
   obj.lastTimeStamp = null;
   obj.lights = [];
   obj.cnt = Math.random() * 10 + 12;
-  console.log(obj.w);
-  for (var i = 0; i < obj.cnt; i++) {
-    var r = Math.min(obj.w, obj.h) / 50 * (1 + Math.random());
-    obj.lights.push( 
-      new _balloon(
-        Math.random() * obj.w, 
-        Math.random() * obj.h,
-        r
-      )
-    );
-  }
   
   obj.drawFrm = function(timeStamp) {
     if (!obj.lastTimeStamp) obj.lastTimeStamp = timeStamp;
@@ -73,6 +62,19 @@ motionGraphics.xMasTree = function(el) {
       }
       obj.ctx.fill();
             
+      if (obj.lights.length == 0) {
+        for (var i = 0; i < 10000; i++) {
+          var xy = [Math.random() * obj.w, Math.random() * obj.h];
+          var p = obj.ctx.getImageData(xy[0], xy[1], 1, 1).data; 
+          if (p == [165, 42, 42]) {
+            var r = Math.min(dw, dh) * (1 + Math.random());
+            obj.lights.push( 
+              new _light(xy[0], xy[1], r)
+            );
+          }
+        }
+      }
+      
       for (var i = 0; i < obj.lights.length; i++) {
         var b = obj.lights[i];
 
