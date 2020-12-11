@@ -56,23 +56,23 @@ motionGraphics.xMasTree = function(el) {
       obj.ctx.fillStyle="black";
       obj.ctx.rect(0, 0, obj.w, obj.h);
       obj.ctx.fill();
+            
+      var dw = obj.w / 100;
+      var dh = obj.h / 100;
+      obj.ctx.beginPath();
+      obj.ctx.fillStyle = "Brown";
+      obj.ctx.rect(dw * 50 - dw * 4, dh * 64, dw * 50 + dw * 4, dh * 80);
+      obj.ctx.fill();
       
       obj.ctx.beginPath();
       obj.ctx.fillStyle = "ForestGreen";
-      var dw = obj.w / 100;
-      var dh = obj.h / 100;
       for (var i = 0; i < 3; i++) {
-        obj.ctx.moveTo(dw * 50, dh * 8 * (1 + i * 2));
-        obj.ctx.lineTo(dw * 50 - dw * 3 * (i + 3), dh * 8 * (4 + i * 2));
-        obj.ctx.lineTo(dw * 50 + dw * 3 * (i + 3), dh * 8 * (4 + i * 2));
+        obj.ctx.moveTo(dw * 50, dh * 8.5 * (1 + i * 2));
+        obj.ctx.lineTo(dw * 50 - dw * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 + dw * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
       }
       obj.ctx.fill();
-      
-      obj.ctx.beginPath();
-      obj.ctx.fillStyle = "Brown";
-      obj.ctx.rect(obj.w / 2 - obj.w / 20, obj.h / 15 * (3 * 3 + 1), obj.w / 10, obj.h / 15 * 3);
-      obj.ctx.fill();
-      
+            
       for (var i = 0; i < obj.lights.length; i++) {
         var b = obj.lights[i];
 
