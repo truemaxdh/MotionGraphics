@@ -59,10 +59,12 @@ motionGraphics.xMasTree = function(el) {
       
       obj.ctx.beginPath();
       obj.ctx.fillStyle = "ForestGreen";
+      var dw = obj.w / 100;
+      var dh = obj.h / 100;
       for (var i = 0; i < 3; i++) {
-        obj.ctx.moveTo(obj.w / 2, obj.h / 15 * (i * 3 + 1) );
-        obj.ctx.lineTo(obj.w / 2 - obj.w / 5, obj.h / 15 * (i * 3 + 4) );
-        obj.ctx.lineTo(obj.w / 2 + obj.w / 5, obj.h / 15 * (i * 3 + 4) );
+        obj.ctx.moveTo(dw * 50, dh * 15 * (1 + i * 2));
+        obj.ctx.lineTo(dw * 50 - dw * 2 * (i + 1), dh * 15 * (3 + i * 2));
+        obj.ctx.lineTo(dw * 50 + dw * 2 * (i + 1), dh * 15 * (3 + i * 2));
       }
       obj.ctx.fill();
       
