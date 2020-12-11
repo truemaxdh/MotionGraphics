@@ -62,9 +62,9 @@ motionGraphics.xMasTree = function(el) {
       var dw = obj.w / 100;
       var dh = obj.h / 100;
       for (var i = 0; i < 3; i++) {
-        obj.ctx.moveTo(dw * 50, dh * 10 * (1 + i * 2));
-        obj.ctx.lineTo(dw * 50 - dw * 3 * (i + 2), dh * 10 * (4 + i * 2));
-        obj.ctx.lineTo(dw * 50 + dw * 3 * (i + 2), dh * 10 * (4 + i * 2));
+        obj.ctx.moveTo(dw * 50, dh * 8 * (1 + i * 2));
+        obj.ctx.lineTo(dw * 50 - dw * 3 * (i + 3), dh * 8 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 + dw * 3 * (i + 3), dh * 8 * (4 + i * 2));
       }
       obj.ctx.fill();
       
