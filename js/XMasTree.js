@@ -70,7 +70,7 @@ motionGraphics.xMasTree = function(el) {
         var cmpColor = true;
         for (var i = 0; i < 4; i++) {
           if (p[i] != lightGreen[i]) {
-            eq = false;
+            cmpColor = false;
             break;
           }
         }
