@@ -58,7 +58,7 @@ motionGraphics.xMasTree = function(el) {
       
       obj.ctx.beginPath();
       //obj.ctx.fillStyle = "bisque";
-      var grd = obj.ctx.createLinearGradient(0, dh * 80, 0, dh);
+      var grd = obj.ctx.createLinearGradient(0, dh * 80, 0, dh * 100);
       grd.addColorStop(0, "bisque");
       grd.addColorStop(1, "Tan");
       obj.ctx.fillStyle = grd;
