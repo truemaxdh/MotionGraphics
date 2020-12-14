@@ -102,7 +102,7 @@ motionGraphics.xMasTree = function(el) {
           obj.ctx.stroke();
         }
         
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.05) {
           b.style = (b.style == "fill") ? "stroke" : "fill";
         }
       }
