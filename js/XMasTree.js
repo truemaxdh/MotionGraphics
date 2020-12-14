@@ -13,11 +13,12 @@ function _light(cx_per, cy_per, r_per) {
   this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
-function _snow(cx_per, cy_per, r_per, dy_per) {
-  this.cx_per = cx_per;
-  this.cy_per = cy_per;
-  this.r_per = r_per;
-  this.dy_per = dy_per;
+// snow
+function _snow(cx_per, cy, r, dy) {
+  this.cx = cx;
+  this.cy = cy;
+  this.r = r;
+  this.dy = dy;
 }
 
 motionGraphics.xMasTree = function(el) {
@@ -40,6 +41,7 @@ motionGraphics.xMasTree = function(el) {
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
   obj.lights = [];
+  obj.snows = [];
   obj.cnt = Math.random() * 10 + 12;
   
   obj.drawFrm = function(timeStamp) {
@@ -110,6 +112,37 @@ motionGraphics.xMasTree = function(el) {
           b.style = (b.style == "fill") ? "stroke" : "fill";
         }
       }
+      
+      obj.ctx.globalCompositeOperation = "lighter";
+      obj.ctx.strokeStyle="#ccc";
+      for (var i = 0; i < obj.snows.length; i++) {
+        var b = obj.snows[i];
+        obj.ctx.lineWidth = b.r * 0.7;
+        for (var j = 0; j < 3; j++) {        
+          obj.ctx.beginPath();
+          var rad = j * Math.PI / 3;
+          obj.ctx.moveTo(b.cx - Math.cos(rad) * b.r, b.cy - Math.sin(rad) * b.r);
+          obj.ctx.lineTo(b.cx + Math.cos(rad) * b.r, b.cy + Math.sin(rad) * b.r);
+          obj.ctx.stroke();
+        }
+        b.cy += b.dy;
+        if (b.cy > obj.h) {
+          obj.snows.splice(i--, 1);
+        }
+      }
+      
+      if (obj.snows.length < 100 && Math.random() < 0.2) {
+      obj.snows.push( 
+        new _snow(
+          Math.random() * obj.w, 
+          0,
+          Math.min(obj.w, obj.h) * (Math.random() * 0.015 + 0.005),
+          (obj.h * 0.005 + Math.random() * obj.h * 0.02)
+        )
+      );
+      //console.log(obj.snows);
+    }  
+      obj.ctx.globalCompositeOperation = "source-over";
     }
     
     requestAnimationFrame(obj.drawFrm);
