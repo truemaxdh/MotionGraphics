@@ -103,7 +103,7 @@ motionGraphics.xMasTree = function(el) {
           obj.ctx.arc(b.cx_per * dw, b.cy_per * dh, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.fill();
         } else {
-          obj.ctx.lineWidth = 1 + Math.random() * 3;
+          obj.ctx.lineWidth = 1 + Math.random() * Math.min(dw, dh) * 0.5;
           obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
           obj.ctx.arc(b.cx_per * dw, b.cy_per * dh, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.stroke();
