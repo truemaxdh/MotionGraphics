@@ -81,7 +81,7 @@ motionGraphics.xMasTree = function(el) {
       }
       obj.ctx.fill();
             
-      if (obj.lights.length < 45) {
+      if (obj.lights.length < 60) {
         var xy_per = [Math.random() * 100, Math.random() * 100];
         var p = obj.ctx.getImageData(xy_per[0] * dw, xy_per[1] * dh, 1, 1).data;
         console.log(p);
