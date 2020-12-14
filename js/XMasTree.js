@@ -2,10 +2,10 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
-function _light(cx, cy, r) {
-  this.cx = cx;
-  this.cy = cy;
-  this.r = r;
+function _light(cx_per, cy_per, r_per) {
+  this.cx_per = cx_per;
+  this.cy_per = cy_per;
+  this.r_per = r_per;
   this.style = (Math.random() >= 0.5) ? "fill" : "stroke";
   this.getNewC = function(c) {
     return 80 + Math.random() * 176;
@@ -13,11 +13,11 @@ function _light(cx, cy, r) {
   this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
-function _snow(cx, cy, r, dy) {
-  this.cx = cx;
-  this.cy = cy;
-  this.r = r;
-  this.dy = dy;
+function _snow(cx_per, cy_per, r_per, dy_per) {
+  this.cx_per = cx_per;
+  this.cy_per = cy_per;
+  this.r_per = r_per;
+  this.dy_per = dy_per;
 }
 
 motionGraphics.xMasTree = function(el) {
@@ -57,7 +57,11 @@ motionGraphics.xMasTree = function(el) {
       var dh = obj.h / 100;
       
       obj.ctx.beginPath();
-      obj.ctx.fillStyle = "bisque";
+      //obj.ctx.fillStyle = "bisque";
+      var grd = ctx.createLinearGradient(0, 0, 0, dh * 20);
+      grd.addColorStop(0, "bisque");
+      grd.addColorStop(1, "Tan");
+      obj.ctx.fillStyle = grd;
       obj.ctx.rect(0, dh * 80, dw * 100, dh * 20);
       obj.ctx.fill();
       
@@ -94,11 +98,11 @@ motionGraphics.xMasTree = function(el) {
         obj.ctx.beginPath();
         if (b.style == "fill") {
           obj.ctx.fillStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
-          obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
+          obj.ctx.arc(b.cx_per * dx, b.cy_per * dy, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.fill();
         } else {
           obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
-          obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
+          obj.ctx.arc(b.cx_per * dx, b.cy_per * dy, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.stroke();
         }
         
