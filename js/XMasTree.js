@@ -80,8 +80,8 @@ motionGraphics.xMasTree = function(el) {
       obj.ctx.fill();
             
       if (obj.lights.length < 45) {
-        var xy = [Math.random() * obj.w, Math.random() * obj.h];
-        var p = obj.ctx.getImageData(xy[0], xy[1], 1, 1).data;
+        var xy_per = [Math.random() * 100, Math.random() * 100];
+        var p = obj.ctx.getImageData(xy[0] * dw, xy[1] * dh, 1, 1).data;
         console.log(p);
         if (p.join() == [34, 139, 34, 255].join()) {
           var r = Math.min(dw, dh) * (1 + Math.random());
@@ -98,11 +98,11 @@ motionGraphics.xMasTree = function(el) {
         obj.ctx.beginPath();
         if (b.style == "fill") {
           obj.ctx.fillStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
-          obj.ctx.arc(b.cx_per * dx, b.cy_per * dy, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
+          obj.ctx.arc(b.cx_per * dw, b.cy_per * dh, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.fill();
         } else {
           obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
-          obj.ctx.arc(b.cx_per * dx, b.cy_per * dy, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
+          obj.ctx.arc(b.cx_per * dw, b.cy_per * dh, b.r_per * Math.min(dw, dh), 0, 2 * Math.PI);
           obj.ctx.stroke();
         }
         
