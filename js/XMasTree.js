@@ -14,7 +14,7 @@ function _light(cx_per, cy_per, r_per) {
 }
 
 // snow
-function _snow(cx_per, cy, r, dy) {
+function _snow(cx, cy, r, dy) {
   this.cx = cx;
   this.cy = cy;
   this.r = r;
