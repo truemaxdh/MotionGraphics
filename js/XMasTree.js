@@ -86,7 +86,7 @@ motionGraphics.xMasTree = function(el) {
         if (p.join() == [34, 139, 34, 255].join()) {
           var r = Math.min(dw, dh) * (1 + Math.random());
           obj.lights.push( 
-            new _light(xy[0], xy[1], r)
+            new _light(xy_per[0], xy_per[1], r)
           );
         }
       }
