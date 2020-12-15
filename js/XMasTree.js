@@ -2,6 +2,7 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
+// light
 function _light(cx_per, cy_per, r_per) {
   this.cx_per = cx_per;
   this.cy_per = cy_per;
@@ -59,7 +60,6 @@ motionGraphics.xMasTree = function(el) {
       var dh = obj.h / 100;
       
       obj.ctx.beginPath();
-      //obj.ctx.fillStyle = "bisque";
       var grd = obj.ctx.createLinearGradient(0, dh * 60, 0, dh * 100);
       grd.addColorStop(0, "bisque");
       grd.addColorStop(1, "Tan");
@@ -76,8 +76,8 @@ motionGraphics.xMasTree = function(el) {
       obj.ctx.fillStyle = "ForestGreen";
       for (var i = 0; i < 3; i++) {
         obj.ctx.moveTo(dw * 50, dh * 8.5 * (1 + i * 2));
-        obj.ctx.lineTo(dw * 50 - dw * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
-        obj.ctx.lineTo(dw * 50 + dw * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 - dh * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 + dh * 3.5 * (i + 3), dh * 8.5 * (4 + i * 2));
       }
       obj.ctx.fill();
             
