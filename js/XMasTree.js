@@ -76,8 +76,8 @@ motionGraphics.xMasTree = function(el) {
       obj.ctx.fillStyle = "ForestGreen";
       for (var i = 0; i < 3; i++) {
         obj.ctx.moveTo(dw * 50, dh * 8.5 * (1 + i * 2));
-        obj.ctx.lineTo(dw * 50 - dh * 4.0 * (i + 3), dh * 8.5 * (4 + i * 2));
-        obj.ctx.lineTo(dw * 50 + dh * 4.0 * (i + 3), dh * 8.5 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 - dh * 4.2 * (i + 3), dh * 8.5 * (4 + i * 2));
+        obj.ctx.lineTo(dw * 50 + dh * 4.2 * (i + 3), dh * 8.5 * (4 + i * 2));
       }
       obj.ctx.fill();
             
