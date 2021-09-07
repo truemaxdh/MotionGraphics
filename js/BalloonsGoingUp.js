@@ -15,10 +15,10 @@ function _balloon(cx, cy, r, dx, dy) {
   this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
 }
 
-motionGraphics.balloonsUp = function(el) {
+motionGraphics.balloonsGoingUp = function(el) {
   console.log(el.style);
 
-  motionGraphics.runningObj = this.balloonsUp;
+  motionGraphics.runningObj = this.balloonsGoingUp;
   
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
