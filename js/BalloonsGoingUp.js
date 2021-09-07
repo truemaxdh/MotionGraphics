@@ -25,8 +25,10 @@ motionGraphics.balloonsGoingUp = function(el) {
   cnv.style.width = el.style.width;
   cnv.style.height = el.style.height;
   cnv.id = "cnv";
-  cnv.width = cnv.style.width.replace("px","");
-  cnv.height = cnv.style.height.replace("px","");
+  
+  var positionInfo = el.getBoundingClientRect();
+  cnv.width = positionInfo.width
+  cnv.height = positionInfo.height;
   el.appendChild(cnv);
 
   var obj = this.balloonsGoingUp;
