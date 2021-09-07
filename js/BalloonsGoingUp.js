@@ -29,7 +29,7 @@ motionGraphics.balloonsGoingUp = function(el) {
   cnv.height = cnv.style.height.replace("px","");
   el.appendChild(cnv);
 
-  var obj = this.balloonsUp;
+  var obj = this.balloonsGoingUp;
   obj.ctx = cnv.getContext("2d");
   obj.w = cnv.width;
   obj.h = cnv.height;
