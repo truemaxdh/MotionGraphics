@@ -21,6 +21,7 @@
     <script src="js/HanguelBounce.js"></script>
     <script src="js/BalloonsGoingUp.js"></script>
     <script src="js/XMasTree.js"></script>
+    <script src="js/Landscape.js"></script>
     
     <script>
       function demo_hanguelBounce() {
@@ -39,6 +40,12 @@
         var el = document.getElementById("board");
         el.innerHTML = "";
         motionGraphics.xMasTree(el);
+      }
+      
+      function demo_landscape() {
+        var el = document.getElementById("board");
+        el.innerHTML = "";
+        motionGraphics.landscape(el);
       }
       
       var fullScreen = false;
@@ -100,6 +107,7 @@
       <a href="javascript:demo_hanguelBounce();">HanguelBounce</a>
       <a href="javascript:demo_balloonsGoingUp();">BalloonsGoingUp</a>
       <a href="javascript:demo_xMasTree();">XMasTree</a>
+      <a href="javascript:demo_landscape();">Landscape</a>
       
       <div id="board" style="width:800px; height:600px;" ondblclick="toggleFullScreen();"></div>
       <br>
