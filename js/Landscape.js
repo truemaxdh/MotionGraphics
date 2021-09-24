@@ -53,7 +53,7 @@ function _sun(ctx, w, h, cx, cy, r) {
   }
 }
 
-function _tree = function(ctx, w, h, cx, cy) {
+function _tree(ctx, w, h, cx, cy) {
   this.ctx = ctx;
   this.w = w;
   this.h = h;
