@@ -77,7 +77,7 @@ motionGraphics.landscape = function(el) {
   //obj.trees = [];
   
   obj.drawFrm = function(timeStamp) {
-    obj.sun.drawFrm(timestamp);
+    obj.sun.drawFrm(timeStamp);
   }
   
   requestAnimationFrame(obj.drawFrm);
