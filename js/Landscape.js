@@ -59,9 +59,9 @@ function _tree(ctx, w, h, cx, cy) {
   this.h = h;
   this.cx = cx;
   this.cy = cy;
-  this.rad0 = Math.PI * 270 / 180;
-  this.len0 = 90;
-  this.depth0 = 0;
+  this.rad = [Math.PI * 270 / 180];
+  this.len = [90];
+  this.depth = [0];
   
   this.drawLeaf = function(x, y, rad, len) {
     var toX = x + Math.cos(rad) * len;
@@ -95,8 +95,6 @@ function _tree(ctx, w, h, cx, cy) {
       ctx.strokeStyle="#731100";
       ctx.stroke();  
     }
-    
-    this.depth++;
   }
   
   this.drawFrm = function(timeStamp) {
@@ -113,6 +111,7 @@ function _tree(ctx, w, h, cx, cy) {
 
         var rad2 = rad + Math.PI * 20 / 180;
         drawLine(toX, toY, rad2, len2, depth1);
+        this.depth++;
       } else {
         drawLeaf(x, y, rad, len, depth);
       }
