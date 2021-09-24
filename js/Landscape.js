@@ -80,5 +80,5 @@ motionGraphics.landscape = function(el) {
     obj.sun.drawFrm(timestamp);
   }
   
-  requestAnimationFrame(specialEffects.landscape.drawFrm);
+  requestAnimationFrame(obj.drawFrm);
 }
