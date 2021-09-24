@@ -2,12 +2,13 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
-function _sun(ctx, w, h, cx, cy, countdown) {
+function _sun(ctx, w, h, cx, cy, r, countdown) {
   this.ctx = ctx;
   this.w = w;
   this.h = h;
   this.cx = cx;
   this.cy = cy;
+  this.r = r;
   this.countdown = countdown;
   this.div = Math.floor(12 + 58 * Math.random()) * 2;
   this.bgr = {r:255, g:0, b:0};
@@ -73,7 +74,7 @@ motionGraphics.landscape = function(el) {
   obj.w = cnv.width;
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
-  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random());
+  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random(), 50 + (Math.min(cnv.width, cnv.height) - 50) * Math.random());
   //obj.mountain = new Mountain();
   //obj.trees = [];
   
