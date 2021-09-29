@@ -150,6 +150,7 @@ motionGraphics.landscape = function(el) {
       obj.sun.drawFrm(timeStamp);
     else
       obj.tree.drawFrm(timeStamp);
+    obj.frmCount++;
     requestAnimationFrame(obj.drawFrm);
   }
   
