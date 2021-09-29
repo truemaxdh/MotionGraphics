@@ -9,7 +9,6 @@ function _sun(ctx, w, h, cx, cy, r) {
   this.cx = cx;
   this.cy = cy;
   this.r = r;
-  this.countdown = countdown;
   this.div = Math.floor(12 + 58 * Math.random()) * 2;
   this.bgr = {r:200, g:0, b:0};
   this.lastTimeStamp = null;
