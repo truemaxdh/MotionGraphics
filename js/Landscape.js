@@ -97,8 +97,8 @@ function _tree(ctx, w, h, cx, cy) {
   }
   
   this.drawFrm = function(timeStamp) {
-    if (!obj.lastTimeStamp) obj.lastTimeStamp = timeStamp;
-    if ((timeStamp - obj.lastTimeStamp) > 200) {
+    if (!this.lastTimeStamp) this.lastTimeStamp = timeStamp;
+    if ((timeStamp - this.lastTimeStamp) > 200) {
       var depth = this.depth;
       if (depth < 6) {
         var goldenRatio = 1 / 1.618;
