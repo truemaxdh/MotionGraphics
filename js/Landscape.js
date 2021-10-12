@@ -62,7 +62,7 @@ function _tree(ctx, w, h, sx, sy) {
   this.nextParams = [[sx, sy, Math.PI * 270 / 180, 90, 0]];
   
   this.drawLeaf = function() {
-    curParams.foreach(param=>{
+    this.curParams.foreach(param=>{
       let cx = param[0];
       let cy = param[1];
       let rad = param[2];
@@ -87,7 +87,7 @@ function _tree(ctx, w, h, sx, sy) {
   }
       
   this.drawLine = function() {
-    curParams.foreach(param=>{
+    this.curParams.foreach(param=>{
       let cx = param[0];
       let cy = param[1];
       let rad = param[2];
