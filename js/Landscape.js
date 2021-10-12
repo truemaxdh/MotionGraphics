@@ -118,7 +118,7 @@ function _tree(ctx, w, h, sx, sy) {
       this.nextParams.push([toX, toY, rad1, len1, depth1]);
       this.nextParams.push([toX, toY, rad2, len2, depth1]);
     } else {
-      this.drawLeaf();
+      this.drawLeaf([toX, toY, rad, len, depth]);
     }    
   }
   
