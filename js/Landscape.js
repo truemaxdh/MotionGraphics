@@ -123,7 +123,7 @@ function _tree(ctx, w, h, sx, sy) {
         nextParams.push([toX, toY, rad2, len2, depth1]);
         //tmr = setTimeout(function() {drawLine(toX, toY, rad2, len2, depth1)}, tm);
       } else {
-        drawLeaf();
+        this.drawLeaf();
       }
     });
   }
@@ -133,7 +133,7 @@ function _tree(ctx, w, h, sx, sy) {
     if ((timeStamp - this.lastTimeStamp) > 200) {
       this.curParams = this.nextParams;
       this.nextParams = [];
-      drawLine();
+      this.drawLine();
     }
   }
 }
@@ -159,7 +159,7 @@ motionGraphics.landscape = function(el) {
   obj.w = cnv.width;
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
-  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random(), 50 + (Math.min(cnv.width, cnv.height) - 50) * Math.random());
+  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * 0.Math.random(), 50 + (Math.min(cnv.width, cnv.height) * 0.5 - 50) * Math.random());
   obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random());
   obj.frmCount = 0;
   
