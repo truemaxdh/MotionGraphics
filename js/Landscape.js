@@ -62,7 +62,7 @@ function _tree(ctx, w, h, sx, sy) {
   this.nextParams = [[sx, sy, Math.PI * 270 / 180, 90, 0]];
   
   this.drawLeaf = function() {
-    this.curParams.foreach(param=>{
+    this.curParams.forEach(param=>{
       let cx = param[0];
       let cy = param[1];
       let rad = param[2];
@@ -87,7 +87,7 @@ function _tree(ctx, w, h, sx, sy) {
   }
       
   this.drawLine = function() {
-    this.curParams.foreach(param=>{
+    this.curParams.forEach(param=>{
       let cx = param[0];
       let cy = param[1];
       let rad = param[2];
@@ -118,9 +118,9 @@ function _tree(ctx, w, h, sx, sy) {
         let rad1 = rad - Math.PI * 20 / 180;
         let rad2 = rad + Math.PI * 20 / 180;
         
-        nextParams.push([toX, toY, rad1, len1, depth1]);
+        this.nextParams.push([toX, toY, rad1, len1, depth1]);
         //var tmr = setTimeout(function() {drawLine(toX, toY, rad1, len1, depth1)}, tm);
-        nextParams.push([toX, toY, rad2, len2, depth1]);
+        this.nextParams.push([toX, toY, rad2, len2, depth1]);
         //tmr = setTimeout(function() {drawLine(toX, toY, rad2, len2, depth1)}, tm);
       } else {
         this.drawLeaf();
@@ -131,6 +131,7 @@ function _tree(ctx, w, h, sx, sy) {
   this.drawFrm = function(timeStamp) {
     if (!this.lastTimeStamp) this.lastTimeStamp = timeStamp;
     if ((timeStamp - this.lastTimeStamp) > 200) {
+      this.lastTimeStamp = timeStamp;
       this.curParams = this.nextParams;
       this.nextParams = [];
       this.drawLine();
@@ -164,7 +165,7 @@ motionGraphics.landscape = function(el) {
   obj.frmCount = 0;
   
   obj.drawFrm = function(timeStamp) {
-    if (obj.frmCount < 500)
+    if (obj.frmCount < 300)
       obj.sun.drawFrm(timeStamp);
     else
       obj.tree.drawFrm(timeStamp);
