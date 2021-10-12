@@ -52,68 +52,88 @@ function _sun(ctx, w, h, cx, cy, r) {
   }
 }
 
-function _tree(ctx, w, h, cx, cy) {
+function _tree(ctx, w, h, sx, sy) {
   this.ctx = ctx;
   this.w = w;
   this.h = h;
-  this.cx = cx;
-  this.cy = cy;
-  this.rad = [Math.PI * 270 / 180];
-  this.len = [90];
-  this.depth = [0];
+  this.sx = sx;
+  this.sy = sy;
+  this.curParams = [];
+  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 90, 0]];
   
-  this.drawLeaf = function(x, y, rad, len) {
-    var toX = x + Math.cos(rad) * len;
-    var toY = y + Math.sin(rad) * len;
-    var r = Math.random() * 20 + 5;
-    var c0 = parseInt(Math.random() * 7);
-    var c1 = parseInt(Math.random() * 7 + 9);
-    var c2 = parseInt(Math.random() * 7);
-    ctx.beginPath();
-    ctx.arc(toX, toY, r, 0, 2 * Math.PI);
-    ctx.strokeStyle="#aaa";
-    ctx.lineWidth=2;
-    ctx.fillStyle="#" + c0.toString(16) + c1.toString(16) + c2.toString(16);
-    ctx.stroke();
-    ctx.fill();
+  this.drawLeaf = function() {
+    curParams.foreach(param=>{
+      let cx = param[0];
+      let cy = param[1];
+      let rad = param[2];
+      let len = param[3];
+      let depth = param[4];
+      
+      let toX = cx + Math.cos(rad) * len;
+      let toY = cy + Math.sin(rad) * len;
+      let r = Math.random() * 20 + 5;
+      let c0 = parseInt(Math.random() * 7);
+      let c1 = parseInt(Math.random() * 7 + 9);
+      let c2 = parseInt(Math.random() * 7);
+      //console.log("#" + c0.toString(16) + c1.toString(16) + c2.toString(16));
+      this.ctx.beginPath();
+      this.ctx.arc(toX, toY, r, 0, 2 * Math.PI);
+      this.ctx.strokeStyle="#aaa";
+      this.ctx.lineWidth=2;
+      this.ctx.fillStyle="#" + c0.toString(16) + c1.toString(16) + c2.toString(16);
+      this.ctx.stroke();
+      this.ctx.fill();
+    });
   }
       
-  this.drawLine = function(x, y, rad, len) {
-    var depth = this.depth;
-    var fromDepth = 40 - 7 * (depth - 1);
-    var toDepth = 40 - 7 * depth;
-    var dDepth = (toDepth - fromDepth) / len;
-    for (var _len = 0; _len <= len; _len++) {
-      var toX = x + Math.cos(rad) * _len;
-      var toY = y + Math.sin(rad) * _len;
-      var width = fromDepth + dDepth * _len;
-      ctx.beginPath();
-      ctx.moveTo(x, y);
-      ctx.lineTo(toX, toY);
-      ctx.lineWidth = width;
-      ctx.strokeStyle="#731100";
-      ctx.stroke();  
-    }
+  this.drawLine = function() {
+    curParams.foreach(param=>{
+      let cx = param[0];
+      let cy = param[1];
+      let rad = param[2];
+      let len = param[3];
+      let depth = param[4];
+      
+      let fromDepth = 40 - 7 * (depth - 1);
+      let toDepth = 40 - 7 * depth;
+      let dDepth = (toDepth - fromDepth) / len;
+      let toX, toY;
+      for (let _len = 0; _len <= len; _len++) {
+        toX = cx + Math.cos(rad) * _len;
+        toY = cy + Math.sin(rad) * _len;
+        let width = fromDepth + dDepth * _len;
+        this.ctx.beginPath();
+        this.ctx.moveTo(cx, cy);
+        this.ctx.lineTo(toX, toY);
+        this.ctx.lineWidth = width;
+        this.ctx.strokeStyle="#731100";
+        this.ctx.stroke(); 
+      }
+      
+      let depth1 = depth+1;
+      if (depth < 6) {
+        let rnd = Math.floor(Math.random() * 2);
+        let len1 = len * ((rnd == 0) ? this.goldenRatio : 1);
+        let len2 = len * ((rnd == 0) ? 1 : this.goldenRatio);
+        let rad1 = rad - Math.PI * 20 / 180;
+        let rad2 = rad + Math.PI * 20 / 180;
+        
+        nextParams.push([toX, toY, rad1, len1, depth1]);
+        //var tmr = setTimeout(function() {drawLine(toX, toY, rad1, len1, depth1)}, tm);
+        nextParams.push([toX, toY, rad2, len2, depth1]);
+        //tmr = setTimeout(function() {drawLine(toX, toY, rad2, len2, depth1)}, tm);
+      } else {
+        drawLeaf();
+      }
+    });
   }
   
   this.drawFrm = function(timeStamp) {
     if (!this.lastTimeStamp) this.lastTimeStamp = timeStamp;
     if ((timeStamp - this.lastTimeStamp) > 200) {
-      var depth = this.depth;
-      if (depth < 6) {
-        var goldenRatio = 1 / 1.618;
-        var rnd = Math.floor(Math.random() * 2);
-        var len1 = len * ((rnd == 0) ? goldenRatio : 1);
-        var len2 = len * ((rnd == 0) ? 1 : goldenRatio);
-        var rad1 = rad - Math.PI * 20 / 180;
-        drawLine(toX, toY, rad1, len1, depth1);
-
-        var rad2 = rad + Math.PI * 20 / 180;
-        drawLine(toX, toY, rad2, len2, depth1);
-        this.depth++;
-      } else {
-        drawLeaf(x, y, rad, len, depth);
-      }
+      this.curParams = this.nextParams;
+      this.nextParams = [];
+      drawLine();
     }
   }
 }
@@ -141,8 +161,6 @@ motionGraphics.landscape = function(el) {
   obj.lastTimeStamp = null;
   obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random(), 50 + (Math.min(cnv.width, cnv.height) - 50) * Math.random());
   obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random());
-  //obj.mountain = new Mountain();
-  //obj.trees = [];
   obj.frmCount = 0;
   
   obj.drawFrm = function(timeStamp) {
