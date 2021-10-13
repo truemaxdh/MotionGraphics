@@ -115,10 +115,10 @@ function _tree(ctx, w, h, sx, sy) {
       let rad1 = rad - Math.PI * 20 / 180;
       let rad2 = rad + Math.PI * 20 / 180;
 
-      this.nextParams.push([toX, toY, rad1, len1, depth1]);
-      this.nextParams.push([toX, toY, rad2, len2, depth1]);
+      this.nextParams.push([0 + toX, 0 + toY, 0 + rad1, 0 + len1, 0 + depth1]);
+      this.nextParams.push([0 + toX, 0 + toY, 0 + rad2, 0 + len2, 0 + depth1]);
     } else {
-      this.drawLeaf([toX, toY, rad, len, depth]);
+      this.drawLeaf([0 + toX, 0 + toY, 0 + rad, 0 + len, 0 + depth]);
     }    
   }
   
