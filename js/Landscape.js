@@ -59,7 +59,7 @@ function _tree(ctx, w, h, sx, sy) {
   this.sx = sx;
   this.sy = sy;
   this.curParams = [];
-  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 50, 0]];
+  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 60, 0]];
   this.goldenRatio = 1 / 1.618;
   this.maxDepth = 4;
   this.rootWidth = 30;
@@ -135,6 +135,7 @@ function _tree(ctx, w, h, sx, sy) {
         this.drawLine(param);
       });
     }
+    return (this.nextParams.length == 0);
   }
 }
 
@@ -166,8 +167,11 @@ motionGraphics.landscape = function(el) {
   obj.drawFrm = function(timeStamp) {
     if (obj.frmCount < 300)
       obj.sun.drawFrm(timeStamp);
-    else
-      obj.tree.drawFrm(timeStamp);
+    else {
+      let isFinished = obj.tree.drawFrm(timeStamp);
+      if (isFinished)
+        obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * (0.7 + 0.3 * Math.random()));
+    }
     obj.frmCount++;
     requestAnimationFrame(obj.drawFrm);
   }
