@@ -124,10 +124,11 @@ function _tree(ctx, w, h, sx, sy) {
   
   this.drawFrm = function(timeStamp) {
     if (!this.lastTimeStamp) this.lastTimeStamp = timeStamp;
-    if ((timeStamp - this.lastTimeStamp) > 200) {
+    if ((timeStamp - this.lastTimeStamp) > 200 & this.nextParams.length > 0) {
       this.lastTimeStamp = timeStamp;
       this.curParams = this.nextParams;
       this.nextParams = [];
+      console.log(this.curParams);
       this.curParams.forEach(param=>{
         this.drawLine(param);
       });
