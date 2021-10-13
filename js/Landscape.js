@@ -61,6 +61,8 @@ function _tree(ctx, w, h, sx, sy) {
   this.curParams = [];
   this.nextParams = [[sx, sy, Math.PI * 270 / 180, 50, 0]];
   this.goldenRatio = 1 / 1.618;
+  this.maxDepth = 4;
+  this.rootWidth = 30;
 
   this.drawLeaf = function(param) {
     let cx = param[0];
@@ -92,8 +94,8 @@ function _tree(ctx, w, h, sx, sy) {
     let len = param[3];
     let depth = param[4];
 
-    let fromDepth = 30 - 5 * (depth - 1);
-    let toDepth = 30 - 5 * depth;
+    let fromDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * (depth - 1);
+    let toDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * depth;
     let dDepth = (toDepth - fromDepth) / len;
     let toX, toY;
     for (let _len = 0; _len <= len; _len++) {
@@ -113,8 +115,8 @@ function _tree(ctx, w, h, sx, sy) {
       let rnd = Math.floor(Math.random() * 2);
       let len1 = len * ((rnd == 0) ? this.goldenRatio : 1);
       let len2 = len * ((rnd == 0) ? 1 : this.goldenRatio);
-      let rad1 = rad - Math.PI * 20 / 180;
-      let rad2 = rad + Math.PI * 20 / 180;
+      let rad1 = rad - Math.PI * 15 / 180;
+      let rad2 = rad + Math.PI * 15 / 180;
 
       this.nextParams.push([0 + toX, 0 + toY, 0 + rad1, 0 + len1, 0 + depth1]);
       this.nextParams.push([0 + toX, 0 + toY, 0 + rad2, 0 + len2, 0 + depth1]);
