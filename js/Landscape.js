@@ -10,7 +10,7 @@ function _sun(ctx, w, h, cx, cy, r) {
   this.cy = cy;
   this.r = r;
   this.div = Math.floor(12 + 58 * Math.random()) * 2;
-  this.bgr = {r:200, g:0, b:0};
+  this.bgr = {r:190, g:50, b:50};
   this.lastTimeStamp = null;
   
   this.getNewC = function(c) {
@@ -59,10 +59,10 @@ function _tree(ctx, w, h, sx, sy) {
   this.sx = sx;
   this.sy = sy;
   this.curParams = [];
-  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 60, 0]];
+  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 50 + Math.random() * 13, 0]];
   this.goldenRatio = 1 / 1.618;
-  this.maxDepth = 4;
-  this.rootWidth = 30;
+  this.maxDepth = 3 + Math.random() * 3;
+  this.rootWidth = 25 + Math.random() * 6;
 
   this.drawLeaf = function(param) {
     let cx = param[0];
