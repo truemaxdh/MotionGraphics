@@ -92,8 +92,8 @@ function _tree(ctx, w, h, sx, sy) {
     let len = param[3];
     let depth = param[4];
 
-    let fromDepth = 40 - 7 * (depth - 1);
-    let toDepth = 40 - 7 * depth;
+    let fromDepth = 30 - 7 * (depth - 1);
+    let toDepth = 30 - 7 * depth;
     let dDepth = (toDepth - fromDepth) / len;
     let toX, toY;
     for (let _len = 0; _len <= len; _len++) {
@@ -129,7 +129,6 @@ function _tree(ctx, w, h, sx, sy) {
       this.lastTimeStamp = timeStamp;
       this.curParams = this.nextParams;
       this.nextParams = [];
-      console.log(this.curParams);
       this.curParams.forEach(param=>{
         this.drawLine(param);
       });
