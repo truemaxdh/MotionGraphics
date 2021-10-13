@@ -71,7 +71,7 @@ function _tree(ctx, w, h, sx, sy) {
 
     let toX = cx + Math.cos(rad) * len;
     let toY = cy + Math.sin(rad) * len;
-    let r = Math.random() * 20 + 5;
+    let r = Math.random() * 10 + 3;
     let c0 = parseInt(Math.random() * 7);
     let c1 = parseInt(Math.random() * 7 + 9);
     let c2 = parseInt(Math.random() * 7);
@@ -92,8 +92,8 @@ function _tree(ctx, w, h, sx, sy) {
     let len = param[3];
     let depth = param[4];
 
-    let fromDepth = 30 - 7 * (depth - 1);
-    let toDepth = 30 - 7 * depth;
+    let fromDepth = 30 - 5 * (depth - 1);
+    let toDepth = 30 - 5 * depth;
     let dDepth = (toDepth - fromDepth) / len;
     let toX, toY;
     for (let _len = 0; _len <= len; _len++) {
