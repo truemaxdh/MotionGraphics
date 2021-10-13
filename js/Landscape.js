@@ -158,7 +158,7 @@ motionGraphics.landscape = function(el) {
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
   obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random(), 50 + (Math.min(cnv.width, cnv.height) * 0.5 - 50) * Math.random());
-  obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * 0.5 * (1 + Math.random()));
+  obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * (0.7 + 0.3 * Math.random()));
   obj.frmCount = 0;
   
   obj.drawFrm = function(timeStamp) {
