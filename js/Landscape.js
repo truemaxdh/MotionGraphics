@@ -59,7 +59,7 @@ function _tree(ctx, w, h, sx, sy) {
   this.sx = sx;
   this.sy = sy;
   this.curParams = [];
-  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 90, 0]];
+  this.nextParams = [[sx, sy, Math.PI * 270 / 180, 50, 0]];
   this.goldenRatio = 1 / 1.618;
 
   this.drawLeaf = function(param) {
@@ -158,7 +158,7 @@ motionGraphics.landscape = function(el) {
   obj.w = cnv.width;
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
-  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * Math.random(), 50 + (Math.min(cnv.width, cnv.height) * 0.5 - 50) * Math.random());
+  obj.sun = new _sun(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * 0.3 * Math.random(), 45 + Math.min(cnv.width, cnv.height) * 0.5 * Math.random());
   obj.tree = new _tree(obj.ctx, obj.w, obj.h, obj.w * Math.random(), obj.h * (0.7 + 0.3 * Math.random()));
   obj.frmCount = 0;
   
