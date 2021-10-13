@@ -63,6 +63,10 @@ function _tree(ctx, w, h, sx, sy) {
   this.goldenRatio = 1 / 1.618;
   this.maxDepth = 3 + Math.random() * 3;
   this.rootWidth = 25 + Math.random() * 6;
+  this.strokeStyle = "#" + this.getRndColor(105, 10) + this.getRndColor(12, 10) + this.getRndColor(0, 10) ;
+  this.getRndColor = function(base, variant) {
+    return parseInt(base + Math.random() * variant).toString(16);
+  }
 
   this.drawLeaf = function(param) {
     let cx = param[0];
@@ -106,7 +110,7 @@ function _tree(ctx, w, h, sx, sy) {
       this.ctx.moveTo(cx, cy);
       this.ctx.lineTo(toX, toY);
       this.ctx.lineWidth = width;
-      this.ctx.strokeStyle="#731100";
+      this.ctx.strokeStyle = this.strokeStyle;
       this.ctx.stroke(); 
     }
 
