@@ -60,7 +60,8 @@ function _tree(ctx, w, h, sx, sy) {
   this.sy = sy;
   this.curParams = [];
   this.nextParams = [[sx, sy, Math.PI * 270 / 180, 90, 0]];
-  
+  this.goldenRatio = 1 / 1.618;
+
   this.drawLeaf = function(param) {
     let cx = param[0];
     let cy = param[1];
