@@ -97,12 +97,11 @@ function _tree(ctx, w, h, sx, sy) {
 
     let fromDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * (depth - 1) + 2;
     let toDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * depth + 2;
-    let dDepth = (toDepth - fromDepth) / len;
     let toX, toY;
     for (let _len = 0; _len <= len; _len++) {
       toX = cx + Math.cos(rad) * _len;
       toY = cy + Math.sin(rad) * _len;
-      let width = fromDepth + dDepth * _len;
+      let width = fromDepth + (toDepth - fromDepth) * _len / len;
       this.ctx.beginPath();
       this.ctx.moveTo(cx, cy);
       this.ctx.lineTo(toX, toY);
