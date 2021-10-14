@@ -4,21 +4,36 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
 
 function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   this.consonant = consonant;
-  this.cx = cx;
-  this.cy = cy;
+  this.center = new Vector2D(cx, cy);
   this.r = r;
-  this.dx = dx;
-  this.dy = dy;
+  this.speed = new Vector2D(dx, dy);
   this.style = style;
-  this.getNewC = function(c) {
-    if (c == -1)
-      return Math.random() * 256;
-    c += Math.random() * 5 - 2;
-    if (c < 127) c = 127;
-    if (c > 255) c = 255;
-    return c;
+  this.bgr = {r:getRndInt(10, 246), g:getRndInt(10, 246), b:getRndInt(10, 246)};
+  this.move = function() {
+    this.center.add(this.speed);
   }
-  this.bgr = {r:this.getNewC(-1), g:this.getNewC(-1), b:this.getNewC(-1)};
+  
+  this.collide = function(han1) {
+    let distVector = this.center.clone();
+    distVector.subtract(han1.center);
+    
+    // collision check
+    if (distVector.magnitude() <= (this.r + han1.r)) {
+      let distUV1 = Vector2D.Create(distVector.unitVector());
+      let distUV2 = Vector2D.Create(distVector.unitVector());
+      let thisSpeed = this.speed.magnitude();
+      let han1Speed = han1.speed.magnitude();
+      this.speed.add(distUV1.multiply1D(han1Speed));
+      han1.speed.subtract(distUV2.multiply1D(thisSpeed));  
+    }
+  }
+  
+  this.hitTheWall = function(w, h) {
+    let newCenter = this.center.clone();
+    newCenter.add(this.speed);
+    if (newCenter.v1 < 0 || newCenter.v1 >= w) this.speed.v1 *= -1;
+    if (newCenter.v2 < 0 || newCenter.v2 >= h) this.speed.v2 *= -1;
+  }
 }
 
 motionGraphics.hanguelBounce = function(el) {
@@ -75,54 +90,56 @@ motionGraphics.hanguelBounce = function(el) {
 
         // draw
         obj.ctx.beginPath();
-        //obj.ctx.globalAlpha = 0.8;
         obj.ctx.shadowBlur = 5;
         obj.ctx.shadowColor = "white";
-        //obj.ctx.lineWidth = 3;
-        //obj.ctx.arc(b.cx, b.cy, b.r, 0, 2 * Math.PI);
-        //obj.ctx.stroke();
-        //obj.ctx.fillStyle = "red";
         if (b.style == "fill") {
-          obj.ctx.fillStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
+          obj.ctx.fillStyle = getRGBStr(b.bgr.r, b.bgr.g, b.bgr.b);
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
-          obj.ctx.fillText(b.consonant, b.cx, b.cy);
+          obj.ctx.fillText(b.consonant, b.center.v1, b.center.v2);
         } else {
-          obj.ctx.strokeStyle = "rgb(" + b.bgr.r + "," + b.bgr.g + "," + b.bgr.b + ")";
+          obj.ctx.strokeStyle = getRGBStr(b.bgr.r, b.bgr.g, b.bgr.b);
           obj.ctx.font = (2 * b.r) + "px Comic Sans MS";
           obj.ctx.textAlign = "center";
-          obj.ctx.strokeText(b.consonant, b.cx, b.cy);
+          obj.ctx.strokeText(b.consonant, b.center.v1, b.center.v2);
         }
 
         // collision
         for (var j = i + 1; j < obj.hanguels.length; j++) {
           var b2 = obj.hanguels[j];
-          var nCx1 = b.cx + b.dx;
-          var nCy1 = b.cy + b.dy;
-          var nCx2 = b2.cx + b2.dx;
-          var nCy2 = b2.cy + b2.dy;
+          var nCx1 = b.center.v1 + b.speed.v1;
+          var nCy1 = b.center.v2 + b.speed.v2;
+          var nCx2 = b2.center.v1 + b2.speed.v1;
+          var nCy2 = b2.center.v2 + b2.speed.v2;
           var d_sqr = (nCx2 - nCx1)*(nCx2 - nCx1) + (nCy2 - nCy1)*(nCy2 - nCy1);
           var d_chk = (b.r + b2.r)*(b.r + b2.r); 
           if (d_sqr < d_chk) {
-            var tmp = b.dx + 0;
-            b.dx = b2.dx;
-            b2.dx = tmp;
-            tmp = b.dy + 0;
-            b.dy = b2.dy;
-            b2.dy = tmp;
-            b.bgr = {r:b.getNewC(b.bgr.r), g:b.getNewC(b.bgr.g), b:b.getNewC(b.bgr.b)};
-            b2.bgr = {r:b2.getNewC(b2.bgr.r), g:b2.getNewC(b2.bgr.g), b:b2.getNewC(b2.bgr.b)};
+            var tmp = b.speed.v1 + 0;
+            b.speed.v1 = b2.speed.v1;
+            b2.speed.v1 = tmp;
+            tmp = b.speed.v2 + 0;
+            b.speed.v2 = b2.speed.v2;
+            b2.speed.v2 = tmp;
+            let tmpBgr = b.bgr;
+            b.bgr = b2.bgr;
+            b2.bgr = tmpBgr;
             b.style = (Math.random() >= 0.5) ? "fill" : "stroke";
             b2.style = (Math.random() >= 0.5) ? "fill" : "stroke"
           }
           if (d_sqr < (d_chk / 4)) {
-            if (b.cx < b2.cx)  {b.cx -= b.r; b2.cx += b2.r;} else {b2.cx -= b2.r; b.cx += b.r;}   
+            if (b.center.v1 < b2.center.v1)  {
+              b.center.v1 -= b.r; 
+              b2.center.v1 += b2.r;
+            } else {
+              b2.center.v1 -= b2.r;
+               b.center.v1 += b.r;
+            }   
           }
         }
-        if ((b.cx + b.dx) < 0 || (b.cx + b.dx) >=  obj.w) b.dx *= -1;
-        if ((b.cy + b.dy) < 0 || (b.cy + b.dy) >=  obj.h) b.dy *= -1;
-        b.cx += b.dx;
-        b.cy += b.dy;
+        if ((b.center.v1 + b.speed.v1) < 0 || (b.center.v1 + b.speed.v1) >=  obj.w) b.speed.v1 *= -1;
+        if ((b.center.v2 + b.speed.v2) < 0 || (b.center.v2 + b.speed.v2) >=  obj.h) b.speed.v2 *= -1;
+        b.center.v1 += b.speed.v1;
+        b.center.v2 += b.speed.v2;
       }
     }
     
