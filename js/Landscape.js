@@ -96,8 +96,8 @@ function _tree(ctx, w, h, sx, sy) {
     let len = param[3];
     let depth = param[4];
 
-    let fromDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * (depth - 1);
-    let toDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * depth;
+    let fromDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * (depth - 1) + 2;
+    let toDepth = this.rootWidth - (this.rootWidth / this.maxDepth) * depth + 2;
     let dDepth = (toDepth - fromDepth) / len;
     let toX, toY;
     for (let _len = 0; _len <= len; _len++) {
