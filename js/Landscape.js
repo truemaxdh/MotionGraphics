@@ -53,7 +53,7 @@ function _land(ctx, w, h) {
     
   this.drawFrm = function(timeStamp) {
     this.lastTimeStamp = timeStamp;
-    this.ctx.fillStyle = "#c68a12";
+    this.ctx.fillStyle = "#CFAB3C";
     this.ctx.fillRect(0, this.landHeight, this.w, this.h);
   }
 }
