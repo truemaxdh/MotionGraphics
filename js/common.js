@@ -17,5 +17,5 @@ const getRndColor = function(baseR, baseG, baseB, variation) {
 }
 
 const getRGBStr = function(intR, intG, intB) {
-	return "rgb(" + intR + "," + intG + "," + intB + ")";
+	return "rgb(" + prune(intR, 0, 255) + "," + prune(intG, 0, 255) + "," + prune(intB, 0, 255) + ")";
 }
