@@ -69,7 +69,6 @@ function _tree(ctx, w, h, sx, sy) {
   this.maxDepth = getRndInt(3, 3);
   this.rootWidth = getRndInt(25, 6);
   this.branchColor = getRndColor(110, 24, 0, 48);
-  console.log(this.branchColor);
   this.drawLeaf = function(param) {
     let cx = param[0];
     let cy = param[1];
