@@ -164,7 +164,7 @@ motionGraphics.landscape = function(el) {
   obj.lastTimeStamp = null;
   obj.sun = new _sun(obj.ctx, obj.w, obj.h, getRndInt(0, obj.w), getRndInt(0, obj.h * 0.3), getRndInt(35, Math.min(cnv.width, cnv.height) * 0.3));
   obj.land = new _land(obj.ctx, obj.w, obj.h);
-  obj.tree = new _tree(obj.ctx, obj.w, obj.h, getRndInt(0, obj.w), getRndInt(obj.h * 0.7, obj.h * 0.3));
+  obj.tree = new _tree(obj.ctx, obj.w, obj.h, getRndInt(0, obj.w), getRndInt(obj.h * 0.75, obj.h * 0.25));
   obj.treeCnt = 1;
   obj.treeMax = getRndInt(5, 15);
   obj.frmCount = 0;
@@ -177,7 +177,7 @@ motionGraphics.landscape = function(el) {
     else {
       let isFinished = obj.tree.drawFrm(timeStamp);
       if (isFinished && obj.treeCnt < obj.treeMax) {
-        obj.tree = new _tree(obj.ctx, obj.w, obj.h, getRndInt(0, obj.w), getRndInt(obj.h * 0.7, obj.h * 0.3));
+        obj.tree = new _tree(obj.ctx, obj.w, obj.h, getRndInt(0, obj.w), getRndInt(obj.h * 0.75, obj.h * 0.25));
         obj.treeCnt++;
       }        
     }
