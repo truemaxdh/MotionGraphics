@@ -116,13 +116,13 @@ motionGraphics.hanguelBounce = function(el) {
         }
 
         // collision
-        //if (checked.indexOf(i) < 0) {
+        if (checked.indexOf(i) < 0) {
           for (var j = i + 1; j < obj.hanguels.length; j++) {
             if (b.collide(obj.hanguels[j])) {
               checked.push(j);
             }
           }  
-        //}        
+        }        
         
         b.speed.rotate(b.rotateAngle);
         b.rotateAngle = 0;
