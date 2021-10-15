@@ -31,7 +31,7 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
       this.speed.multiply1D(-1);
       other.speed.multiply1D(-1);
       this.rotateAngle += 2 * (refAngle - this.speed.theta());
-      other.rotateAngle += -2 * (Math.PI + refAngle - other.speed.theta());
+      other.rotateAngle += 2 * (Math.PI + refAngle - other.speed.theta());
       checked = true;
     }
     return checked;
