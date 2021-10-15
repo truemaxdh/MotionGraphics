@@ -15,7 +15,7 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   this.dist = function(other) {
     let c1 = this.center;
     let c2 = other.center;
-    return Math.sqrt((c2.v1 - c1.v1) * (c2.v1 - c1.v1) + (c2.v2 - c1.v2) * (c2.v2 - c1.v2));
+    return Math.hypot(c2.v1 - c1.v1, c2.v2 - c1.v2);
   }
   
   this.move = function() {
@@ -25,13 +25,34 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   this.collide = function(other) {
     // collision check
     let checked = false;
-    if (this.dist(other) <= (this.r + other.r)) {
+    let dist = this.dist(other);
+    let minDist = this.r + other.r;
+    if (this.dist(other) <= minDist) {
       // mirroring
       let refAngle = this.center.clone().subtract(other.center).theta();
       this.speed.multiply1D(-1);
       other.speed.multiply1D(-1);
       this.rotateAngle += 2 * (refAngle - this.speed.theta());
       other.rotateAngle += 2 * (Math.PI + refAngle - other.speed.theta());
+      
+      // split
+      let halfDiff = (minDist - dist) / 2;
+      if (this.center.v1 < other.center.v1) {
+        this.center.v1 -= halfDiff;
+        other.center.v1 += halfDiff;
+      } else {
+        this.center.v1 += halfDiff;
+        other.center.v1 -= halfDiff;
+      }
+      
+      if (this.center.v2 < other.center.v2) {
+        this.center.v2 -= halfDiff;
+        other.center.v2 += halfDiff;
+      } else {
+        this.center.v2 += halfDiff;
+        other.center.v2 -= halfDiff;
+      }
+      
       checked = true;
     }
     return checked;
