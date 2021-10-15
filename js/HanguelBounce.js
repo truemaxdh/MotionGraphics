@@ -6,25 +6,31 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   this.consonant = consonant;
   this.center = new Vector2D(cx, cy);
   this.r = r;
+  this.m = r * r;
   this.speed = new Vector2D(dx, dy);
   this.style = style;
   this.bgr = {r:getRndInt(10, 246), g:getRndInt(10, 246), b:getRndInt(10, 246)};
+  this.rotateAngle = 0;
+  
+  this.dist = function(other) {
+    let c1 = this.center;
+    let c2 = other.center;
+    return Math.sqrt((c2.v1 - c1.v1) * (c2.v1 - c1.v1) + (c2.v2 - c1.v2) * (c2.v2 - c1.v2));
+  }
+  
   this.move = function() {
     this.center.add(this.speed);
   }
   
-  this.collide = function(han1) {
-    let distVector = this.center.clone();
-    distVector.subtract(han1.center);
-    
+  this.collide = function(other) {
     // collision check
-    if (distVector.magnitude() <= (this.r + han1.r)) {
-      let distUV1 = Vector2D.Create(distVector.unitVector());
-      let distUV2 = Vector2D.Create(distVector.unitVector());
-      let thisSpeed = this.speed.magnitude();
-      let han1Speed = han1.speed.magnitude();
-      this.speed.add(distUV1.multiply1D(han1Speed));
-      han1.speed.subtract(distUV2.multiply1D(thisSpeed));  
+    if (this.dist(other) <= (this.r + other.r)) {
+      // mirroring
+      let refAngle = this.center.clone().subtract(other.center).theta();
+      this.speed.multiply1D(-1);
+      other.speed.multiply1D(-1);
+      this.rotateAngle += 2 * (refAngle - this.speed.theta());
+      other.rotateAngle += 2 * (Math.PI + refAngle - other.speed.theta());
     }
   }
   
@@ -58,7 +64,8 @@ motionGraphics.hanguelBounce = function(el) {
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
   obj.hanguels = [];
-  obj.cnt = Math.random() * 10 + 12;
+  //obj.cnt = Math.random() * 12 + 3;
+  obj.cnt = 4;
   
   for (var i = 0; i < obj.cnt; i++) {
     obj.hanguels.push( 
@@ -106,40 +113,13 @@ motionGraphics.hanguelBounce = function(el) {
 
         // collision
         for (var j = i + 1; j < obj.hanguels.length; j++) {
-          var b2 = obj.hanguels[j];
-          var nCx1 = b.center.v1 + b.speed.v1;
-          var nCy1 = b.center.v2 + b.speed.v2;
-          var nCx2 = b2.center.v1 + b2.speed.v1;
-          var nCy2 = b2.center.v2 + b2.speed.v2;
-          var d_sqr = (nCx2 - nCx1)*(nCx2 - nCx1) + (nCy2 - nCy1)*(nCy2 - nCy1);
-          var d_chk = (b.r + b2.r)*(b.r + b2.r); 
-          if (d_sqr < d_chk) {
-            var tmp = b.speed.v1 + 0;
-            b.speed.v1 = b2.speed.v1;
-            b2.speed.v1 = tmp;
-            tmp = b.speed.v2 + 0;
-            b.speed.v2 = b2.speed.v2;
-            b2.speed.v2 = tmp;
-            let tmpBgr = b.bgr;
-            b.bgr = b2.bgr;
-            b2.bgr = tmpBgr;
-            b.style = (Math.random() >= 0.5) ? "fill" : "stroke";
-            b2.style = (Math.random() >= 0.5) ? "fill" : "stroke"
-          }
-          if (d_sqr < (d_chk / 4)) {
-            if (b.center.v1 < b2.center.v1)  {
-              b.center.v1 -= b.r; 
-              b2.center.v1 += b2.r;
-            } else {
-              b2.center.v1 -= b2.r;
-               b.center.v1 += b.r;
-            }   
-          }
+          b.collide(obj.hanguels[j]);
         }
-        if ((b.center.v1 + b.speed.v1) < 0 || (b.center.v1 + b.speed.v1) >=  obj.w) b.speed.v1 *= -1;
-        if ((b.center.v2 + b.speed.v2) < 0 || (b.center.v2 + b.speed.v2) >=  obj.h) b.speed.v2 *= -1;
-        b.center.v1 += b.speed.v1;
-        b.center.v2 += b.speed.v2;
+        
+        b.speed.rotate(b.rotateAngle);
+        b.rotateAngle = 0;
+        b.hitTheWall(obj.w, obj.h);
+        b.move();
       }
     }
     
