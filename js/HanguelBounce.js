@@ -88,8 +88,7 @@ motionGraphics.hanguelBounce = function(el) {
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
   obj.hanguels = [];
-  //obj.cnt = Math.random() * 12 + 3;
-  obj.cnt = 4;
+  obj.cnt = Math.random() * 10 + 5;
   
   for (var i = 0; i < obj.cnt; i++) {
     obj.hanguels.push( 
