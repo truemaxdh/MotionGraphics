@@ -24,6 +24,7 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
   
   this.collide = function(other) {
     // collision check
+    let checked = false;
     if (this.dist(other) <= (this.r + other.r)) {
       // mirroring
       let refAngle = this.center.clone().subtract(other.center).theta();
@@ -31,7 +32,9 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
       other.speed.multiply1D(-1);
       this.rotateAngle += 2 * (refAngle - this.speed.theta());
       other.rotateAngle += 2 * (Math.PI + refAngle - other.speed.theta());
+      checked = true;
     }
+    return checked;
   }
   
   this.hitTheWall = function(w, h) {
@@ -92,6 +95,7 @@ motionGraphics.hanguelBounce = function(el) {
       obj.ctx.rect(0, 0, obj.w, obj.h);
       obj.ctx.fill();
 
+      let checked = [];
       for (var i = 0; i < obj.hanguels.length; i++) {
         var b = obj.hanguels[i];
 
@@ -112,9 +116,13 @@ motionGraphics.hanguelBounce = function(el) {
         }
 
         // collision
-        for (var j = i + 1; j < obj.hanguels.length; j++) {
-          b.collide(obj.hanguels[j]);
-        }
+        if (checked.indexOf(i) < 0) {
+          for (var j = i + 1; j < obj.hanguels.length; j++) {
+            if (b.collide(obj.hanguels[j])) {
+              checked.push(j);
+            }
+          }  
+        }        
         
         b.speed.rotate(b.rotateAngle);
         b.rotateAngle = 0;
