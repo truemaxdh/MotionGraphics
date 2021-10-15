@@ -25,11 +25,7 @@ class Vector2D {
 		this.v1 = v1;
 		this.v2 = v2;
 	}
-	
-	Create(v) {
-		return new Vector2D(v.v1, v.v2);
-	}
-	
+		
 	clone() {
 		return new Vector2D(this.v1, this.v2);
 	}
@@ -40,22 +36,37 @@ class Vector2D {
 	
 	unitVector() {
 		let mag = this.magnitude();
-		return {v1:this.v1 / mag, v2: this.v2 / mag};
+		return this.clone().multiply1D(1 / mag);
+	}
+	
+	theta() {
+		return Math.atan2(this.v2, this.v1);
+	}
+	
+	rotate(theta) {
+		let mag = this.magnitude();
+		let newTheta = this.theta() + theta;
+		this.v1 = Math.cos(newTheta) * mag;
+		this.v2 = Math.sin(newTheta) * mag;
+		return this;
 	}
 	
 	add(v) {
 		this.v1 += v.v1;
 		this.v2 += v.v2;
+		return this;
 	}
 	
 	subtract(v) {
 		this.v1 -= v.v1;
 		this.v2 -= v.v2;
+		return this;
 	}
 	
 	multiply1D(n) {
 		this.v1 *= n;
 		this.v2 *= n;
+		return this;
 	}
 	
 	calcDist(v) {
