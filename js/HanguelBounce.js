@@ -2,39 +2,41 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
   motionGraphics = {};
 }
 
-function _hanguel(consonant, cx, cy, r, dx, dy, style) {
-  this.consonant = consonant;
-  this.center = new Vector2D(cx, cy);
-  this.r = r;
-  this.m = r * r;
-  this.speed = new Vector2D(dx, dy);
-  this.style = style;
-  this.bgr = {r:getRndInt(10, 246), g:getRndInt(10, 246), b:getRndInt(10, 246)};
-  this.rotateAngle = 0;
-  
-  this.dist = function(other) {
+class _hanguel {
+  constructor(consonant, cx, cy, r, dx, dy, style) {
+    this.consonant = consonant;
+    this.center = new Vector2D(cx, cy);
+    this.r = r;
+    this.m = r * r;
+    this.speed = new Vector2D(dx, dy);
+    this.style = style;
+    this.bgr = {r:getRndInt(10, 246), g:getRndInt(10, 246), b:getRndInt(10, 246)};
+    this.rotateAngle = 0;
+  }
+
+  dist(other) {
     let c1 = this.center;
     let c2 = other.center;
     return Math.hypot(c2.v1 - c1.v1, c2.v2 - c1.v2);
   }
   
-  this.move = function() {
+  move() {
     this.center.add(this.speed);
   }
   
-  this.collide = function(other) {
+  
+  collide(other) {
     // collision check
     let checked = false;
     let dist = this.dist(other);
     let minDist = this.r + other.r;
-    if (this.dist(other) <= minDist) {
-      // mirroring
-      let refAngle = this.center.clone().subtract(other.center).theta();
-      this.speed.multiply1D(-1);
-      other.speed.multiply1D(-1);
-      this.rotateAngle += 2 * (refAngle - this.speed.theta());
-      other.rotateAngle += 2 * (Math.PI + refAngle - other.speed.theta());
-      
+    if (dist <= minDist) {
+      let newVelocityX = elasticCollision([this.m, other.m], [this.speed.v1, other.speed.v1]);
+      let newVelocityY = elasticCollision([this.m, other.m], [this.speed.v2, other.speed.v2]);
+      this.speed = new Vector2D(newVelocityX[0], newVelocityY[0]);
+      other.speed = new Vector2D(newVelocityX[1], newVelocityY[1]);
+      checked = true;
+
       // split
       let halfDiff = (minDist - dist) / 2;
       if (this.center.v1 < other.center.v1) {
@@ -52,13 +54,11 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
         this.center.v2 += halfDiff;
         other.center.v2 -= halfDiff;
       }
-      
-      checked = true;
     }
     return checked;
   }
   
-  this.hitTheWall = function(w, h) {
+  hitTheWall(w, h) {
     let newCenter = this.center.clone();
     newCenter.add(this.speed);
     if (newCenter.v1 < 0 || newCenter.v1 >= w) this.speed.v1 *= -1;
@@ -69,9 +69,7 @@ function _hanguel(consonant, cx, cy, r, dx, dy, style) {
 motionGraphics.hanguelBounce = function(el) {
   console.log(el.style);
   
-  motionGraphics.runningObj = this.hanguelBounce;
-
-  var cnv = document.createElement("CANVAS");
+  let cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
   cnv.style.width = el.style.width;
   cnv.style.height = el.style.height;
@@ -82,7 +80,10 @@ motionGraphics.hanguelBounce = function(el) {
   cnv.height = positionInfo.height;
   el.appendChild(cnv);
 
-  var obj = this.hanguelBounce;
+  let obj = this.hanguelBounce;
+  obj.objName = "hanguelBounce";
+  this.runningObj = obj;
+  
   obj.ctx = cnv.getContext("2d");
   obj.w = cnv.width;
   obj.h = cnv.height;
@@ -150,8 +151,8 @@ motionGraphics.hanguelBounce = function(el) {
         b.move();
       }
     }
-    
-    requestAnimationFrame(obj.drawFrm);
+    if (motionGraphics.runningObj.objName == obj.objName)
+      requestAnimationFrame(obj.drawFrm);
   }
   obj.drawFrm();  
 }

@@ -17,8 +17,6 @@ function _balloon(cx, cy, r, dx, dy) {
 
 motionGraphics.balloonsGoingUp = function(el) {
   console.log(el.style);
-
-  motionGraphics.runningObj = this.balloonsGoingUp;
   
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
@@ -31,7 +29,10 @@ motionGraphics.balloonsGoingUp = function(el) {
   cnv.height = positionInfo.height;
   el.appendChild(cnv);
 
-  var obj = this.balloonsGoingUp;
+  let obj = this.balloonsGoingUp;
+  obj.objName = "balloonsGoingUp";
+  this.runningObj = obj;
+  
   obj.ctx = cnv.getContext("2d");
   obj.w = cnv.width;
   obj.h = cnv.height;
@@ -116,8 +117,8 @@ motionGraphics.balloonsGoingUp = function(el) {
         }
       }
     }
-    
-    requestAnimationFrame(obj.drawFrm);
+    if (motionGraphics.runningObj.objName == obj.objName)
+      requestAnimationFrame(obj.drawFrm);
   }
   obj.drawFrm();  
 }

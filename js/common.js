@@ -20,6 +20,18 @@ const getRGBStr = function(intR, intG, intB) {
 	return "rgb(" + prune(intR, 0, 255) + "," + prune(intG, 0, 255) + "," + prune(intB, 0, 255) + ")";
 }
 
+/**
+ * 
+ * @param mass : [mass1, mass2] 
+ * @param velocity : [velocity1, velocity2]
+ * 
+ * return : [newVelocity1, newVelocity2]
+ */
+const elasticCollision = function(mass, velocity) {
+	let newVelo1 = ((mass[0] - mass[1]) * velocity[0] + 2 * mass[1] * velocity[1]) / (mass[0] + mass[1]);
+	let newVelo2 = (2 * mass[0] * velocity[0] + (mass[1] - mass[0]) * velocity[1]) / (mass[0] + mass[1]);
+	return [newVelo1, newVelo2];
+}
 class Vector2D {
 	constructor(v1, v2) {
 		this.v1 = v1;

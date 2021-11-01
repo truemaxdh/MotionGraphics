@@ -25,8 +25,6 @@ function _snow(cx, cy, r, dy) {
 motionGraphics.xMasTree = function(el) {
   console.log(el.style);
   
-  motionGraphics.runningObj = this.xMasTree;
-  
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
   cnv.style.width = el.style.width;
@@ -38,7 +36,10 @@ motionGraphics.xMasTree = function(el) {
   cnv.height = positionInfo.height;
   el.appendChild(cnv);
 
-  var obj = this.xMasTree;
+  let obj = this.xMasTree;
+  obj.objName = "xMasTree";
+  this.runningObj = obj;
+
   obj.ctx = cnv.getContext("2d");
   obj.w = cnv.width;
   obj.h = cnv.height;
@@ -147,8 +148,8 @@ motionGraphics.xMasTree = function(el) {
     }  
       obj.ctx.globalCompositeOperation = "source-over";
     }
-    
-    requestAnimationFrame(obj.drawFrm);
+    if (motionGraphics.runningObj.objName == obj.objName)
+      requestAnimationFrame(obj.drawFrm);
   }
   obj.drawFrm();  
 }

@@ -142,8 +142,6 @@ function _tree(ctx, w, h, sx, sy) {
 motionGraphics.landscape = function(el) {
   console.log(el.style);
   
-  motionGraphics.runningObj = this.landscape;
-  
   var cnv = document.createElement("CANVAS");
   cnv.style.position = "relative";
   cnv.style.width = el.style.width;
@@ -155,7 +153,10 @@ motionGraphics.landscape = function(el) {
   cnv.height = positionInfo.height;
   el.appendChild(cnv);
 
-  var obj = this.landscape;
+  let obj = this.landscape;
+  obj.objName = "landscape";
+  this.runningObj = obj;
+  
   obj.ctx = cnv.getContext("2d");
   obj.w = cnv.width;
   obj.h = cnv.height;
@@ -180,7 +181,8 @@ motionGraphics.landscape = function(el) {
       }        
     }
     obj.frmCount++;
-    requestAnimationFrame(obj.drawFrm);
+    if (motionGraphics.runningObj.objName == obj.objName)
+      requestAnimationFrame(obj.drawFrm);
   }
   
   obj.drawFrm();
