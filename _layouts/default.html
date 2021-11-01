@@ -23,33 +23,10 @@
     <script src="js/BalloonsGoingUp.js"></script>
     <script src="js/XMasTree.js"></script>
     <script src="js/Landscape.js"></script>
+    <script src="js/AutonomousShips.js"></script>
     
     <script>
-      function demo_hanguelBounce() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        motionGraphics.hanguelBounce(el);
-      }
-      
-      function demo_balloonsGoingUp() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        motionGraphics.balloonsGoingUp(el);
-      }
-      
-      function demo_xMasTree() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        motionGraphics.xMasTree(el);
-      }
-      
-      function demo_landscape() {
-        var el = document.getElementById("board");
-        el.innerHTML = "";
-        motionGraphics.landscape(el);
-      }
-      
-      var fullScreen = false;
+      let fullScreen = false;
       function toggleFullScreen() {
         var el = document.getElementById("board");
         if (fullScreen) {
@@ -86,14 +63,21 @@
         obj.h = cnv.height;
       }
 
+      function run(runName) {
+        el.innerHTML = "";
+        eval("motionGraphics." + runName + "(el);" );
+      }
+
+      let el;
       const onLoadEx = function() {
-        var _href = window.location.href;
-        var _split = _href.split("#");
-        if (_split.length < 2) {
-          demo_hanguelBounce();
-        } else {
-          eval("demo_" + _split[1] + "();" );
-        }        
+        el = document.getElementById("board");
+        let runName = "hanguelBounce";
+        const _href = window.location.href;
+        const _split = _href.split("#");
+        if (_split.length >= 2) {
+          runName = _split[1];
+        } 
+        run(runName);
       }
     </script>
 
@@ -105,10 +89,11 @@
     <center>
       {{content}}
       <br>
-      <a href="javascript:demo_hanguelBounce();">HanguelBounce</a>
-      <a href="javascript:demo_balloonsGoingUp();">BalloonsGoingUp</a>
-      <a href="javascript:demo_xMasTree();">XMasTree</a>
-      <a href="javascript:demo_landscape();">Landscape</a>
+      <a href="javascript:run('hanguelBounce');">HanguelBounce</a>
+      <a href="javascript:run('balloonsGoingUp');">BalloonsGoingUp</a>
+      <a href="javascript:run('xMasTree');">XMasTree</a>
+      <a href="javascript:run('landscape');">Landscape</a>
+      <a href="javascript:run('autonomousShips');">Autonomous Ships</a>
       
       <div id="board" style="width:800px; height:600px;" ondblclick="toggleFullScreen();"></div>
       <br>
