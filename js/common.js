@@ -22,16 +22,46 @@ const getRGBStr = function(intR, intG, intB) {
 
 /**
  * 
- * @param mass : [mass1, mass2] 
- * @param velocity : [velocity1, velocity2]
+ * @param {array} mass : [mass1, mass2] 
+ * @param {array} velocity : [velocity1, velocity2]
  * 
- * return : [newVelocity1, newVelocity2]
+ * return : {array} [newVelocity1, newVelocity2]
  */
 const elasticCollision = function(mass, velocity) {
 	let newVelo1 = ((mass[0] - mass[1]) * velocity[0] + 2 * mass[1] * velocity[1]) / (mass[0] + mass[1]);
 	let newVelo2 = (2 * mass[0] * velocity[0] + (mass[1] - mass[0]) * velocity[1]) / (mass[0] + mass[1]);
 	return [newVelo1, newVelo2];
 }
+
+/**
+ * 
+ * @param {MovingObj} obj1 
+ * @param {MovingObj} obj2
+ * @param {Number} minDist
+ */
+const roughlySeparate = function(obj1, obj2, minDist) {
+	let dist = obj1.center.calcDist(obj2.center);
+	if (dist < minDist) {
+		// split
+		let halfDiff = (minDist - dist) / 2;
+		if (obj1.center.v1 < obj2.center.v1) {
+			obj1.center.v1 -= halfDiff;
+			obj2.center.v1 += halfDiff;
+		} else {
+			obj1.center.v1 += halfDiff;
+			obj2.center.v1 -= halfDiff;
+		}
+
+		if (obj1.center.v2 < obj2.center.v2) {
+			obj1.center.v2 -= halfDiff;
+			obj2.center.v2 += halfDiff;
+		} else {
+			obj1.center.v2 += halfDiff;
+			obj2.center.v2 -= halfDiff;
+		}
+	}	
+}
+
 class Vector2D {
 	constructor(v1, v2) {
 		this.v1 = v1;

@@ -5,12 +5,11 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
 class Ship{
     constructor(cx, cy) {
         this.maxSpeed = getRndInt(1, 5);
-        this.numOfirections = getRndInt(4, 12);
-        this.r = getRndInt(20, 15);;
-
+        this.r = getRndInt(12, 25);
+        this.color = getRndColor(0, 0, 0, 255);
         this.center = new Vector2D(cx, cy);
-        this.unitRotation = 2 * Math.PI / this.numOfirections;
-        this.direction = getRndInt(0, this.numOfirections) * this.unitRotation;
+        this.unitRotation = Math.PI / getRndInt(2, 18);
+        this.direction = this.unitRotation * getRndInt(0, 36);
     }
 
     dist(other) {
@@ -42,30 +41,47 @@ class Ship{
         let othereNewCenter = other.center.clone().add(other.speed());
         
         // collision check
-        let checked = false;
+        let collided = false;
         let dist = thisNewCenter.calcDist(othereNewCenter);
         let minDist = this.r + other.r;
         if (dist <= minDist) {
-            this.rotate();
-            other.rotate();
-            checked = true;
+            //this.rotate();
+            //other.rotate();
+            roughlySeparate(this, other, minDist);
+            collided = true;
         }
-        return checked;
+        return collided;
     }
 
     hitTheWall(w, h) {
-        let newCenter = this.center.clone();
-        newCenter.add(this.speed());
-        if (newCenter.v1 < 0 || newCenter.v1 >= w || 
-            newCenter.v2 < 0 || newCenter.v2 >= h) {
-                this.rotate();
+        let rotateFlag = false;
+        if (this.center.v1 < this.r) {
+            this.center.v1 = this.r;
+            rotateFlag = true;
         }
+        
+        if (this.center.v1 > (w - this.r)) {
+            this.center.v1 = w - this.r;
+            rotateFlag = true;
+        }
+        
+        if (this.center.v2 < this.r) {
+            this.center.v2 = this.r;
+            rotateFlag = true;
+        }
+        
+        if (this.center.v2 > (h - this.r)) {
+            this.center.v2 = h - this.r;
+            rotateFlag = true;
+        }
+
+        if (rotateFlag) this.rotate();
     }
 
     draw(ctx) {
         ctx.beginPath();
         ctx.ellipse(this.center.v1, this.center.v2, this.r, this.r / 3, this.direction, 0, 2 * Math.PI);
-        ctx.fillStyle = "#ddd";
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
 }
@@ -92,7 +108,7 @@ motionGraphics.autonomousShips = function(el) {
     obj.h = cnv.height;
     obj.lastTimeStamp = null;
     obj.ships = [];
-    obj.cnt = getRndInt(10, 5);
+    obj.cnt = getRndInt(10, 15);
     for (var i = 0; i < obj.cnt; i++) {
         obj.ships.push(new Ship(getRndInt(0, obj.w), getRndInt(0, obj.h)));
     }
@@ -104,26 +120,33 @@ motionGraphics.autonomousShips = function(el) {
             
             // clear
             obj.ctx.beginPath();
-            obj.ctx.fillStyle="black";
+            //obj.ctx.fillStyle="black";
+            obj.ctx.fillStyle="rgba(0, 0, 0, 0.5)";
             obj.ctx.rect(0, 0, obj.w, obj.h);
             obj.ctx.fill();
 
-            let checked = [];
+            let rotateChecked = [];
             for (var i = 0; i < obj.ships.length; i++) {
                 var ship = obj.ships[i];
 
                 // draw
                 ship.draw(obj.ctx);
 
-                // collision
-                for (var j = i + 1; j < obj.ships.length; j++) {
-                    if (ship.collide(obj.ships[j])) {
-                        checked.push(j);
+                // check collision and rotate
+                if (rotateChecked.indexOf(i) >= 0) {
+                    ship.rotate();
+                } else {
+                    // collision check
+                    for (var j = i + 1; j < obj.ships.length; j++) {
+                        if (ship.collide(obj.ships[j])) {
+                            ship.rotate();
+                            rotateChecked.push(j);
+                        }
                     }
                 }
-                
-                ship.hitTheWall(obj.w, obj.h);
+
                 ship.move();
+                ship.hitTheWall(obj.w, obj.h);
             }
         }
         

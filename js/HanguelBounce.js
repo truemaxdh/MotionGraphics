@@ -37,23 +37,7 @@ class _hanguel {
       other.speed = new Vector2D(newVelocityX[1], newVelocityY[1]);
       checked = true;
 
-      // split
-      let halfDiff = (minDist - dist) / 2;
-      if (this.center.v1 < other.center.v1) {
-        this.center.v1 -= halfDiff;
-        other.center.v1 += halfDiff;
-      } else {
-        this.center.v1 += halfDiff;
-        other.center.v1 -= halfDiff;
-      }
-      
-      if (this.center.v2 < other.center.v2) {
-        this.center.v2 -= halfDiff;
-        other.center.v2 += halfDiff;
-      } else {
-        this.center.v2 += halfDiff;
-        other.center.v2 -= halfDiff;
-      }
+      roughlySeparate(this, other, minDist);
     }
     return checked;
   }
@@ -89,7 +73,7 @@ motionGraphics.hanguelBounce = function(el) {
   obj.h = cnv.height;
   obj.lastTimeStamp = null;
   obj.hanguels = [];
-  obj.cnt = Math.random() * 10 + 5;
+  obj.cnt = Math.random() * 10 + 15;
   
   for (var i = 0; i < obj.cnt; i++) {
     obj.hanguels.push( 
