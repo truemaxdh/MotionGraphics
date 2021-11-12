@@ -1,5 +1,5 @@
 const getRndInt = function(base, variation) {
-	return parseInt(base + Math.random() * variation);
+	return Math.floor(base + Math.random() * variation);
 }
 
 const prune = function(val, min, max) {
