@@ -141,6 +141,7 @@ class objCar extends gameobj {
     }
 
     move(ctx, road) {
+        this.center.v2 = ctx.canvas.height * 0.8;
         this.speed.add(this.accel);
         this.center.v1 += this.speed.v1;
         if (this.speed.v2 > this.maxSpeedV2) {
@@ -168,7 +169,7 @@ class objCar extends gameobj {
     }
     
     draw(ctx) {
-        
+        this.center.v2 = ctx.canvas.height * 0.8;
         ctx.save();
         ctx.translate(this.center.v1, this.center.v2);
         ctx.rotate(this.rotate);    
