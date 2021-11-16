@@ -1,2 +1,2 @@
 # MotionGraphics
-Sketches of Motion Graphics 
+Sketches for Motion Graphics 
