@@ -2,51 +2,6 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
     motionGraphics = {};
 }
 
-class gameobj {
-    constructor(cx, cy, r, dx, dy) {
-        this.center = new Vector2D(cx, cy);
-        this.r = r;
-        this.m = r * r;
-        this.speed = new Vector2D(dx, dy);
-        this.accel = new Vector2D(0, 0);
-        this.prev = null;
-        this.next = null;
-    }
-    
-    move() {
-        this.speed.add(this.accel);
-        this.hitTheWall();
-        this.center.add(this.speed);
-        if (this.next != null) {
-            this.next.move();
-        }
-    }
-
-    hitTheWall() {
-        let newCenter = this.center.clone();
-        newCenter.add(this.speed);
-        if ((newCenter.v1 - this.r) < 0 && this.speed.v1 < 0 || 
-            (newCenter.v1 + this.r) > gameCanvas.w && this.speed.v1 > 0) {
-                this.speed.v1 *= -1;
-            }
-            
-        if ((newCenter.v2 - this.r) < 0 && this.speed.v2 < 0 || 
-            (newCenter.v2 + this.r) > gameCanvas.h && this.speed.v2 > 0) {
-                this.speed.v2 *= -1;
-            }
-    }
-
-    draw() {
-        if (this.next != null) {
-            this.next.render();
-        }
-    }
-
-    collide(other) {
-        return this.center.calcDist(other.center) < (this.r + other.r);
-    }
-}
-
 class objRoad extends gameobj {
     constructor() {
         super(0, 0, 1000, 0, 0);
@@ -79,7 +34,7 @@ class objRoad extends gameobj {
         }
     }
 
-    draw(ctx) {
+    render(ctx) {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
         const stepX = w / this.vWidth;
@@ -168,7 +123,7 @@ class objCar extends gameobj {
         this.speed.v1 *= 0.8;
     }
     
-    draw(ctx) {
+    render(ctx) {
         this.center.v2 = ctx.canvas.height * 0.8;
         ctx.save();
         ctx.translate(this.center.v1, this.center.v2);
@@ -181,10 +136,6 @@ class objCar extends gameobj {
         ctx.fillRect(this.r, -this.r, this.r * -0.4, this.r * 0.8);
         ctx.fillRect(this.r, this.r, this.r * -0.4, this.r * -0.8);
         ctx.restore();
-        
-        if (this.next != null) {
-            this.next.render();
-        }
     }
 }
 
@@ -216,8 +167,8 @@ motionGraphics.selfDriving = function(el) {
         if ((timeStamp - obj.lastTimeStamp) > 30) {
             obj.lastTimeStamp = timeStamp;
         
-            road.draw(obj.ctx);
-            car.draw(obj.ctx);
+            road.render(obj.ctx);
+            car.render(obj.ctx);
             road.move(obj.ctx);
             car.move(obj.ctx, road);
             road.collide(car, obj.ctx);
