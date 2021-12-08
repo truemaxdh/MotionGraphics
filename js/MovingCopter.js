@@ -83,16 +83,16 @@ class objCopter extends gameobj {
         ctx.beginPath();
         ctx.moveTo(this.r / 2, 0);
         ctx.lineTo(-this.r, 0);
-        ctx.strokeStyle = "rgb(120, 10, 10)";
+        ctx.strokeStyle = "olive";
         ctx.stroke();
 
         ctx.beginPath();
         ctx.ellipse(this.r / 2, 0, this.r * 0.8, this.r * 0.6, 0, 0, 2 * Math.PI);
-        ctx.fillStyle = "rgb(10, 140, 10)";
+        ctx.fillStyle = "yellowgreen";
         ctx.fill();
         
         ctx.beginPath();
-        ctx.fillStyle = "rgb(10, 110, 10)";
+        ctx.fillStyle = "greenyellow";
         ctx.arc(-this.r, 0, this.r * 0.4, 0, 2 * Math.PI);
         ctx.fill();
 
@@ -106,7 +106,7 @@ class objCopter extends gameobj {
         ctx.lineTo(this.r, 0);
         ctx.moveTo(0, -this.r);
         ctx.lineTo(0, this.r);
-        ctx.strokeStyle = "rgb(20, 20, 200)";
+        ctx.strokeStyle = "peachpuff";
         ctx.stroke();
         ctx.restore();
     }
