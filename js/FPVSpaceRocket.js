@@ -11,13 +11,13 @@ class objMapFPV extends gameobj {
         this.mapCanvas = document.createElement("canvas");
         this.mapCanvas.width = this.mapSize.v1;
         this.mapCanvas.height = this.mapSize.v2;
-        this.mapCtx = this.mapCanvas.getContext("2d");
         this.rotate = 0;
+        this.drawCanvas = document.createElement("canvas");        
         this.createMap();
         //document.body.appendChild(this.mapCanvas);
     }
     createMap() {
-        const ctx = this.mapCtx;
+        const ctx = this.mapCanvas.getContext("2d");
         ctx.fillStyle = this.spaceColor;
         ctx.fillRect(0, 0, this.mapSize.v1, this.mapSize.v2);
         ctx.globalAlpha = 0.7;
@@ -42,22 +42,30 @@ class objMapFPV extends gameobj {
     render(ctx) {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
-        const srcL = this.center.v1 - w * 0.75;
-        const srcT = this.center.v2 - h * 0.75;
-        const tarL = -w * 0.75;
-        const tarH = -h * 0.75;
         const exW = w * 1.5;
         const exH = h * 1.5;
+        const mExW = exW / 2;
+        const mExH = exH / 2;
+        const srcL = this.center.v1 - mExW;
+        const srcT = this.center.v2 - mExH;
+        //const tarL = -w * 0.75;
+        //const tarH = -h * 0.75;
         
-        ctx.fillStyle=this.spaceColor;
-        ctx.rect(0, 0, w, h);
-        ctx.fill();
+        this.drawCanvas.width = exW;
+        this.drawCanvas.height = exH;
+        const drawCtx = this.drawCanvas.getContext("2d");
+
+        drawCtx.fillStyle=this.spaceColor;
+        drawCtx.rect(0, 0, exW, exH);
+        drawCtx.fill();
         
-        ctx.save();
-        ctx.translate(w / 2, h / 2);
-        ctx.rotate(this.rotate - Math.PI / 2);
-        ctx.drawImage(this.mapCanvas, srcL, srcT, exW, exH, tarL, tarH, exW, exH);
-        ctx.restore();        
+        drawCtx.save();
+        drawCtx.translate(mExW, mExH);
+        drawCtx.rotate(this.rotate - Math.PI / 2);
+        drawCtx.drawImage(this.mapCanvas, srcL, srcT, exW, exH, -mExW, -mExH, exW, exH);
+        drawCtx.restore();        
+
+        ctx.drawImage(this.drawCanvas, w * 0.25, h * 0.25, w, h, 0, 0, w, h);
     }
 }
 
