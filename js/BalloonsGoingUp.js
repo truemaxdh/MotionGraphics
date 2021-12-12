@@ -59,10 +59,7 @@ motionGraphics.balloonsGoingUp = function(el) {
       obj.lastTimeStamp = timeStamp;
       
       // clear
-      // afterimage
-      obj.ctx.globalCompositeOperation = 'source-over';    
       obj.ctx.beginPath();
-      //obj.ctx.fillStyle="black";
       obj.ctx.fillStyle = "rgba(135, 206, 235, 0.5)";
       obj.ctx.rect(0, 0, obj.w, obj.h);
       obj.ctx.fill();
