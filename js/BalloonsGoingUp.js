@@ -60,7 +60,10 @@ motionGraphics.balloonsGoingUp = function(el) {
       
       // clear
       obj.ctx.beginPath();
-      obj.ctx.fillStyle = "rgba(135, 206, 235, 0.5)";
+      let skyGradient = obj.ctx.createLinearGradient(0, 0, obj.w, obj.h * 1.2);
+      skyGradient.addColorStop(0, "DeepSkyBlue");
+      skyGradient.addColorStop(1, "AliceBlue");
+      obj.ctx.fillStyle = skyGradient;
       obj.ctx.rect(0, 0, obj.w, obj.h);
       obj.ctx.fill();
 
