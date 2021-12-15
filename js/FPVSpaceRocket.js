@@ -53,31 +53,31 @@ class objMapFPV extends gameobj {
     render(ctx) {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
-        const maxWH = Math.max(w, h);
-        const exW = maxWH * 1.5;
-        const exH = maxWH * 1.5;
-        const mExW = exW / 2;
-        const mExH = exH / 2;
-        let srcL = this.center.v1 - mExW;
-        let srcT = this.center.v2 - mExH;
+        const exWH = Math.max(w, h) * 1.5;
+        const mExWH = exWH / 2;
+        let srcL = this.center.v1 - mExWH;
+        let srcT = this.center.v2 - mExWH;
         if (srcL < 0) srcL += this.mapSize.v1;
         if (srcT < 0) srcT += this.mapSize.v2;
         
-        this.drawCanvas.width = exW;
-        this.drawCanvas.height = exH;
+        this.drawCanvas.width = exWH;
+        this.drawCanvas.height = exWH;
         const drawCtx = this.drawCanvas.getContext("2d");
 
         drawCtx.fillStyle=this.spaceColor;
-        drawCtx.rect(0, 0, exW, exH);
+        drawCtx.rect(0, 0, exWH, exWH);
         drawCtx.fill();
         
         drawCtx.save();
-        drawCtx.translate(mExW, mExH);
+        drawCtx.translate(mExWH, mExWH);
         drawCtx.rotate(this.rotate - Math.PI / 2);
-        drawCtx.drawImage(this.mapCanvas, srcL, srcT, exW, exH, -mExW, -mExH, exW, exH);
+        drawCtx.drawImage(this.mapCanvas, srcL, srcT, exWH, exWH, 
+            -mExWH, -mExWH, exWH, exWH);
         drawCtx.restore();        
 
-        ctx.drawImage(this.drawCanvas, w * 0.25, h * 0.25, w, h, 0, 0, w, h);
+        ctx.drawImage(this.drawCanvas, 
+            (exWH - w) * 0.5, (exWH - h) * 0.5, w, h, 
+            0, 0, w, h);
     }
 }
 
