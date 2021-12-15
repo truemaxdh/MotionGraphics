@@ -53,8 +53,9 @@ class objMapFPV extends gameobj {
     render(ctx) {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
-        const exW = w * 1.5;
-        const exH = h * 1.5;
+        const maxWH = Math.max(w, h);
+        const exW = maxWH * 1.5;
+        const exH = maxWH * 1.5;
         const mExW = exW / 2;
         const mExH = exH / 2;
         let srcL = this.center.v1 - mExW;
