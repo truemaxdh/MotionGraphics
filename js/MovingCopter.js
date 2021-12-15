@@ -9,8 +9,8 @@ class objMap extends gameobj {
         this.landColor = "#f0db66";
         this.mapSize = new Vector2D(r, r);
         this.mapCanvas = document.createElement("canvas");
-        this.mapCanvas.width = this.mapSize.v1;
-        this.mapCanvas.height = this.mapSize.v2;
+        this.mapCanvas.width = this.mapSize.v1 * 2;
+        this.mapCanvas.height = this.mapSize.v2 * 2;
         this.mapCtx = this.mapCanvas.getContext("2d");
         this.createMap();
     }
@@ -18,17 +18,29 @@ class objMap extends gameobj {
         const ctx = this.mapCtx;
         ctx.fillStyle = this.landColor;
         ctx.fillRect(0, 0, this.mapSize.v1, this.mapSize.v2);
-        ctx.globalAlpha = 0.7;
-        for(let i = 0; i < 25; i++) {
+        ctx.globalAlpha = 0.8;
+        const objCnt = Math.random() * this.r * 0.03;
+        for(let cnt = 0; cnt < objCnt; i++) {
             const cx = Math.random() * this.mapSize.v1;
             const cy = Math.random() * this.mapSize.v2;
-            const r = Math.random() * this.r * 0.1;
-            ctx.beginPath();
-            ctx.fillStyle = getRndColor(128, 128, 128, 128);
-            ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-            ctx.fill();
+            const r = Math.random() * 100;
+            if ((cx - r) < 0 || (cx + r) > this.mapSize.v1 ||
+                (cy - r) < 0 || (cy + r) > this.mapSize.v2) {
+                cnt--;
+            } else {
+                ctx.beginPath();
+                ctx.fillStyle = getRndColor(128, 128, 128, 128);
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.fill();    
+            }            
         }
         
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          this.mapSize.v1, 0, this.mapSize.v1, this.mapSize.v2);     
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          0, this.mapSize.v2, this.mapSize.v1, this.mapSize.v2);     
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          this.mapSize.v1, this.mapSize.v2, this.mapSize.v1, this.mapSize.v2);
     }
 
     move(mainObj) {
@@ -41,6 +53,8 @@ class objMap extends gameobj {
         const h = ctx.canvas.height;
         const l = this.center.v1 - Math.floor(w / 2);
         const t = this.center.v2 - Math.floor(h / 2);
+        if (l < 0) l += this.mapSize.v1;
+        if (t < 0) t += this.mapSize.v2;
         const imgData = this.mapCtx.getImageData(l, t, w, h);
         ctx.putImageData(imgData, 0, 0);
     }
@@ -59,8 +73,10 @@ class objCopter extends gameobj {
     move() {
         const speed2D = new Vector2D(Math.cos(this.rotate) * this.speed, Math.sin(this.rotate) * this.speed);
         this.center.add(speed2D);
-        this.center.v1 = prune(this.center.v1, 0, this.mapSize.v1);
-        this.center.v2 = prune(this.center.v2, 0, this.mapSize.v2);
+        if (this.center.v1 < 0) this.center.v1 += this.mapSize.v1;
+        if (this.center.v1 >= this.mapSize.v1) this.center.v1 -= this.mapSize.v1;
+        if (this.center.v2 < 0) this.center.v2 += this.mapSize.v2;
+        if (this.center.v2 >= this.mapSize.v2) this.center.v2 -= this.mapSize.v2;
         const rndNum = Math.random();
         if (rndNum < 0.05) {
             this.rotate -= this.unitRotate;
