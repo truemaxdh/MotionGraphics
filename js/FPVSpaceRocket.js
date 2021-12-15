@@ -20,7 +20,7 @@ class objMapFPV extends gameobj {
         ctx.fillStyle = this.spaceColor;
         ctx.fillRect(0, 0, this.mapSize.v1, this.mapSize.v2);
         ctx.globalAlpha = 0.8;
-        const objCnt = Math.random() * this.r * 0.03;
+        const objCnt = this.r * 0.05;
         for(let cnt = 0; cnt < objCnt; cnt++) {
             const cx = Math.random() * this.mapSize.v1;
             const cy = Math.random() * this.mapSize.v2;
