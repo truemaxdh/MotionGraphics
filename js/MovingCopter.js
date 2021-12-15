@@ -20,7 +20,7 @@ class objMap extends gameobj {
         ctx.fillRect(0, 0, this.mapSize.v1, this.mapSize.v2);
         ctx.globalAlpha = 0.8;
         const objCnt = Math.random() * this.r * 0.03;
-        for(let cnt = 0; cnt < objCnt; i++) {
+        for(let cnt = 0; cnt < objCnt; cnt++) {
             const cx = Math.random() * this.mapSize.v1;
             const cy = Math.random() * this.mapSize.v2;
             const r = Math.random() * 100;
@@ -34,7 +34,7 @@ class objMap extends gameobj {
                 ctx.fill();    
             }            
         }
-        
+        ctx.globalAlpha = 1;
         ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
           this.mapSize.v1, 0, this.mapSize.v1, this.mapSize.v2);     
         ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
@@ -51,8 +51,8 @@ class objMap extends gameobj {
     render(ctx) {
         const w = ctx.canvas.width;
         const h = ctx.canvas.height;
-        const l = this.center.v1 - Math.floor(w / 2);
-        const t = this.center.v2 - Math.floor(h / 2);
+        let l = this.center.v1 - Math.floor(w / 2);
+        let t = this.center.v2 - Math.floor(h / 2);
         if (l < 0) l += this.mapSize.v1;
         if (t < 0) t += this.mapSize.v2;
         const imgData = this.mapCtx.getImageData(l, t, w, h);
