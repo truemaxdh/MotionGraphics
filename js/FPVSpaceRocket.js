@@ -35,7 +35,13 @@ class objMapFPV extends gameobj {
                 ctx.fill();    
             }
         }
-        
+        ctx.globalAlpha = 1;
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          this.mapSize.v1, 0, this.mapSize.v1, this.mapSize.v2);     
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          0, this.mapSize.v2, this.mapSize.v1, this.mapSize.v2);     
+        ctx.drawImage(this.mapCanvas, 0, 0, this.mapSize.v1, this.mapSize.v2,
+          this.mapSize.v1, this.mapSize.v2, this.mapSize.v1, this.mapSize.v2);
     }
 
     move(mainObj) {
@@ -150,7 +156,7 @@ motionGraphics.FPVSpaceRocket = function(el) {
     obj.h = cnv.height;
     obj.lastTimeStamp = null;
 
-    const map = new objMapFPV(5000);
+    const map = new objMapFPV(1000);
     const copter = new objRocketFPV(map);
     obj.drawFrm = function(timeStamp) {
         if (!obj.lastTimeStamp) obj.lastTimeStamp = timeStamp;
