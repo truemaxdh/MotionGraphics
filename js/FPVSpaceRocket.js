@@ -5,12 +5,11 @@ if (typeof motionGraphics === 'undefined' || !motionGraphics) {
 class objMapFPV extends gameobj {
     constructor(r) {
         super(r / 2, r / 2, r, 0, 0);
-        
         this.spaceColor = "#0e1818";
         this.mapSize = new Vector2D(r, r);
         this.mapCanvas = document.createElement("canvas");
-        this.mapCanvas.width = this.mapSize.v1;
-        this.mapCanvas.height = this.mapSize.v2;
+        this.mapCanvas.width = this.mapSize.v1 * 2;
+        this.mapCanvas.height = this.mapSize.v2 * 2;
         this.rotate = 0;
         this.drawCanvas = document.createElement("canvas");        
         this.createMap();
@@ -20,15 +19,21 @@ class objMapFPV extends gameobj {
         const ctx = this.mapCanvas.getContext("2d");
         ctx.fillStyle = this.spaceColor;
         ctx.fillRect(0, 0, this.mapSize.v1, this.mapSize.v2);
-        ctx.globalAlpha = 0.7;
-        for(let i = 0; i < 100; i++) {
+        ctx.globalAlpha = 0.8;
+        const objCnt = Math.random() * this.r * 0.03;
+        for(let cnt = 0; cnt < objCnt; cnt++) {
             const cx = Math.random() * this.mapSize.v1;
             const cy = Math.random() * this.mapSize.v2;
-            const r = getRndInt(this.r * 0.002, this.r * 0.05);
-            ctx.beginPath();
-            ctx.fillStyle = getRndColor(128, 128, 128, 128);
-            ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-            ctx.fill();
+            const r = Math.random() * 100;
+            if ((cx - r) < 0 || (cx + r) > this.mapSize.v1 ||
+                (cy - r) < 0 || (cy + r) > this.mapSize.v2) {
+                cnt--;
+            } else {
+                ctx.beginPath();
+                ctx.fillStyle = getRndColor(128, 128, 128, 128);
+                ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+                ctx.fill();    
+            }
         }
         
     }
@@ -46,10 +51,10 @@ class objMapFPV extends gameobj {
         const exH = h * 1.5;
         const mExW = exW / 2;
         const mExH = exH / 2;
-        const srcL = this.center.v1 - mExW;
-        const srcT = this.center.v2 - mExH;
-        //const tarL = -w * 0.75;
-        //const tarH = -h * 0.75;
+        let srcL = this.center.v1 - mExW;
+        let srcT = this.center.v2 - mExH;
+        if (srcL < 0) srcL += this.mapSize.v1;
+        if (srcT < 0) srcT += this.mapSize.v2;
         
         this.drawCanvas.width = exW;
         this.drawCanvas.height = exH;
@@ -81,8 +86,10 @@ class objRocketFPV extends gameobj {
     move() {
         const speed2D = new Vector2D(Math.cos(this.rotate) * this.speed, Math.sin(this.rotate) * this.speed);
         this.center.add(speed2D);
-        this.center.v1 = prune(this.center.v1, 0, this.mapSize.v1);
-        this.center.v2 = prune(this.center.v2, 0, this.mapSize.v2);
+        if (this.center.v1 < 0) this.center.v1 += this.mapSize.v1;
+        if (this.center.v1 >= this.mapSize.v1) this.center.v1 -= this.mapSize.v1;
+        if (this.center.v2 < 0) this.center.v2 += this.mapSize.v2;
+        if (this.center.v2 >= this.mapSize.v2) this.center.v2 -= this.mapSize.v2;
         this.rotate += (this.targetRotate - this.rotate) / 30;
         if (Math.random() < 0.01) {
             this.targetRotate = getRndInt(0, 2 * Math.PI);
