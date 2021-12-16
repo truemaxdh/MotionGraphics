@@ -97,7 +97,7 @@ class objRocketFPV extends gameobj {
         if (this.center.v1 >= this.mapSize.v1) this.center.v1 -= this.mapSize.v1;
         if (this.center.v2 < 0) this.center.v2 += this.mapSize.v2;
         if (this.center.v2 >= this.mapSize.v2) this.center.v2 -= this.mapSize.v2;
-        this.rotate += (this.targetRotate - this.rotate) / 30;
+        this.rotate += (this.targetRotate - this.rotate) / 50;
         if (Math.random() < 0.01) {
             this.targetRotate = getRndInt(0, 2 * Math.PI);
         }
